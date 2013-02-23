@@ -24,7 +24,7 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
 		solve: false
 	};
 	$scope.issues = [];
-	$scope.currentMarker = null;
+	$scope.activeIssue = null;
 	$scope.newIssue = {};
 	$scope.mapOptions = {
 		center: new google.maps.LatLng(40.4406, -79.9961),
@@ -63,8 +63,6 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
 	};
 
 	$scope.addIssue = function() {
-		//TODO: push to server
-		console.log($scope.newIssue);
 		$http({
 			url: "/issue/open/",
 		    method: "POST",
@@ -88,9 +86,9 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
 
 	$scope.cancelNewIssue = function () {
 		$scope.setMode('select');
+		$scope.issues.pop();
+		$scope.newIssue.marker.setMap(null);
 		$scope.newIssue = {};
-		$scope.clearMarkers();
-		$scope.refreshMarkers();
 	};
 
 	$scope.newMarker = function(lat, lng) {
@@ -101,7 +99,8 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
 	};
 
 	$scope.tempMarker = function ($event) {
-		new google.maps.Marker({
+		$scope.newIssue = {};
+		$scope.newIssue.marker = new google.maps.Marker({
 			map: $scope.map,
 			position: $event.latLng
 		});
@@ -113,7 +112,7 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
 	};
 
 	$scope.removeMarker = function (index) {
-		$scope.issues.splice(index, 1)
+		$scope.issues.splice(index, 1);
 	};
 
 	$scope.clearMarkers = function () {
