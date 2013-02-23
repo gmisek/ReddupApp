@@ -1,4 +1,9 @@
-
+reddup/reddup/settings.py
 .DS_Store
-
 reddup/.DS_Store
+.idea/
+static/
+reddup/*.pyc
+*.pyc
+*.pot
+*.log
