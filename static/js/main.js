@@ -25,6 +25,7 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
 	};
 	$scope.issues = [];
 	$scope.currentMarker = null;
+	$scope.newIssue = {};
 	$scope.mapOptions = {
 		center: new google.maps.LatLng(40.4406, -79.9961),
 		zoom: 12,
@@ -61,17 +62,35 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
 		// );
 	};
 
-	$scope.addIssue = function(event) {
+	$scope.addIssue = function() {
 		//TODO: push to server
+		console.log($scope.newIssue);
 		$http({
-			url: "url",
+			url: "/issue/open/",
 		    method: "POST",
-		    data: {"foo":"bar"}
+		    data: {
+		    	"opener_id" : 1,
+		    	"description" : $scope.newIssue.description,
+		    	"before_img" : $scope.newIssue.image,
+		    	"category_id" : $scope.newIssue.category,
+		    	"reported_to_311" : false,
+		    	"location_type_id" : 1,
+		    	"longitude" : $scope.newIssue.longitude+'',
+		    	"latitude" : $scope.newIssue.latitude+''
+		    }
 		}).success(function(data, status, headers, config) {
     		$scope.refreshMarkers();
+    		$scope.setMode('select');
     	}).error(function(data, status, headers, config) {
     		//
     	});
+	};
+
+	$scope.cancelNewIssue = function () {
+		$scope.setMode('select');
+		$scope.newIssue = {};
+		$scope.clearMarkers();
+		$scope.refreshMarkers();
 	};
 
 	$scope.newMarker = function(lat, lng) {
@@ -79,6 +98,18 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
 			map: $scope.map,
 			position: new google.maps.LatLng(parseFloat(lat), parseFloat(lng))
 		});
+	};
+
+	$scope.tempMarker = function ($event) {
+		new google.maps.Marker({
+			map: $scope.map,
+			position: $event.latLng
+		});
+		
+		$scope.newIssue.latitude = $event.latLng.hb;
+		$scope.newIssue.longitude = $event.latLng.ib;
+
+		$scope.setMode('details');
 	};
 
 	$scope.removeMarker = function (index) {
@@ -93,7 +124,6 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
 
 	$scope.refreshMarkers = function () {
 		$.each($scope.issues, function(index, issue){
-			console.log(issue);
 			issue.marker.setMap($scope.map);
 		});
 	};

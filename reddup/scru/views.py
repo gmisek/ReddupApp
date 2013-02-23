@@ -30,8 +30,8 @@ def open_issue(request):
         category_id = request.POST.get('category_id')
         reported_to_311 = request.POST.get('reported_to_311')
         location_type_id = request.POST.get('location_type_id')
-        longitude = request.POST.get('longitude')
-        latitude = request.POST.get('latitude')
+        longitude = float(request.POST.get('longitude'))
+        latitude = float(request.POST.get('latitude'))
         pnt = Point(longitude, latitude)
         issue = Issue(status=status, opener_id=opener_id, description=description, before_img=before_img,
                       category_id=category_id, reported_to_311=reported_to_311, location_type_id=location_type_id,

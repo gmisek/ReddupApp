@@ -14,7 +14,7 @@
 	
 	<div class="wrap" ng-controller="Controller">
 		<div class="name-row">Steel City <span style="color: #cfac0b;">Redd Up</span></div>
-		<div class="" id="map_canvas" ui-map="map" ui-event="{'map-click': addMarker($event.latLng)}" ui-options="mapOptions" >
+		<div class="" id="map_canvas" ui-map="map" ui-event="{'map-click': 'tempMarker($event)'}" ui-options="mapOptions" >
 		</div>
 		<div class="btn-row" ng-show="mode.select">
 			<div class="big-btn full" ng-click="setMode('identify')">Identify</div>
@@ -32,16 +32,16 @@
 		</div>
 		<!-- Show after choosing location -->
 		<div class="add-details" ng-show="mode.details">
-			<div class="close" ng-click="setMode('select')">&times;</div>
+			<div class="close" ng-click="cancelNewIssue()">&times;</div>
 			<div class="content">
-				<select>
+				<select ng-model="newIssue.category">
 					<option>What kind of problem are you reporting?</option>
-					<option>Garbage</option>
-					<option>Pothole</option>
+					<option value="1">Garbage</option>
+					<option value="1">Pothole</option>
 				</select>
-				<textarea placeholder="Add a description"></textarea>
-				<input type="file" value="Add Image" />
-				<div class="submit-btn">Save issue</div>
+				<textarea ng-model="newIssue.description" placeholder="Add a description"></textarea>
+				<input ng-model="image" type="file" value="Add Image" />
+				<div class="submit-btn" ng-click="addIssue()">Save issue</div>
 			</div>
 		</div>
 		<div class="view-details" ng-show="activePoint">
