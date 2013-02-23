@@ -27,6 +27,9 @@ body {
 	color: #1e5475;
 	cursor: pointer;
 }
+.big-btn.full {
+	width: 100%;
+}
 .big-btn:hover,
 .big-btn:active,
 .big-btn:focus {
@@ -58,6 +61,8 @@ body {
 .add-details {
 	background: #333;
 	overflow: hidden;
+	position: fixed;
+	bottom: 0;
 }
 .view-details .content,
 .add-details .content {
@@ -104,7 +109,7 @@ select, textarea {
 	font-family: 'Roboto Condensed';
 	box-sizing: border-box;
 	width: 100%;
-	margin: 0;
+	margin: 0 0 0.25em 0;
 }
 textarea {
 	resize: none;
@@ -115,4 +120,17 @@ input[type="file"] {
 	border: 0;
 	background: #444;
 	color: #fff;
+	box-sizing: border-box;
+	width: 100%;
+	padding: 0.25em 0;
+	border-radius: 4px;
+}
+.submit-btn {
+	border: 0;
+	border-radius: 4px;
+	background: #34b849;
+	color: #fff;
+	text-align: center;
+	width: 100%;
+	padding: 0.25em;
 }

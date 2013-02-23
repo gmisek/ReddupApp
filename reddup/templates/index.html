@@ -14,13 +14,15 @@
 	
 	<div class="wrap" ng-controller="Controller">
 		<div class="name-row">Steel City <span style="color: #cfac0b;">Redd Up</span></div>
+		<div class="" id="map" ui-map="map" ui-event="{'map-click': addMarker($event.latLng)}">
+			<img src="http://placehold.it/800x1000/">
+		</div>
 		<div class="btn-row" ng-show="mode.select">
-			<div class="big-btn" ng-click="setMode('identify')">Identify</div>
-			<div class="big-btn claim" ng-click="mode.claim">Claim</div>
+			<div class="big-btn full" ng-click="setMode('identify')">Identify</div>
 		</div>
 		<!-- Show after clicking 'Identify' -->
 		<div class="btn-row" ng-show="mode.identify">
-			<div class="big-btn" ng-show="mode.details">Use my location</div>
+			<div class="big-btn" ng-click="setMode('details')">Use my location</div>
 			<div class="msg">or tap the map {{ mode.identify }}</div>
 		</div>
 		<!-- Show after clicking 'Claim' -->
@@ -29,24 +31,22 @@
 		<!-- Show after solving a claim -->
 		<div class="" ng-show="mode == ''">
 		</div>
-		<div class="" id="map" ui-map="map" ui-event="{'map-click': addMarker($event.latLng)}">
-			<img src="http://placehold.it/800x1000/">
-		</div>
 		<!-- Show after choosing location -->
 		<div class="add-details" ng-show="mode.details">
-			<div class="close">&times;</div>
+			<div class="close" ng-click="setMode('select')">&times;</div>
 			<div class="content">
 				<select>
-					<option>Select a type</option>
+					<option>What kind of problem are you reporting?</option>
 					<option>Garbage</option>
 					<option>Pothole</option>
 				</select>
-				<textarea placeholder="Add a description">Add a description</textarea>
+				<textarea placeholder="Add a description"></textarea>
 				<input type="file" value="Add Image" />
+				<div class="submit-btn">Save issue</div>
 			</div>
 		</div>
 		<div class="view-details" ng-show="activePoint">
-			<div class="close">&times;</div>
+			<div class="close" ng-click="setMode('select')">&times;</div>
 			<img src="http://placehold.it/150x100" ng-show="activePoint.image" />
 			<div class="type">{{ activePoint.type }}</div>
 			<div class="meta">{{ activePoint.createdBy }} - {{ activePoint.dateCreated }}</div>
