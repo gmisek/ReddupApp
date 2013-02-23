@@ -9,6 +9,7 @@
 		5. solve
 */
 
+alert('boo');
 angular.module('steelCityReddUp', ['ui'])
 
 /*
