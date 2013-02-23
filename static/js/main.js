@@ -23,7 +23,6 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
 		claim: false,
 		solve: false
 	};
-	$scope.test = "TESTING";
 	$scope.markers = [];
 	$scope.currentMarker = null;
 	$scope.mapOptions = {
@@ -37,9 +36,13 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
 	});
 
 	$scope.setMode = function (mode) {
-		$angular.forEach($scope.mode, function(item) {
-			item = false;
-		});
+		$scope.mode = {
+			select: false,
+			identify: false,
+			details: false,
+			claim: false,
+			solve: false
+		};
 		$scope.mode[mode] = true;
 	};
 
