@@ -10,7 +10,7 @@
 <body>
 	
 	<div class="wrap">
-		<div class="name-row">Steel City Redd Up</div>
+		<div class="name-row">Steel City <span style="color: #cfac0b;">Redd Up</span></div>
 		<div class="btn-row" ng-show="mode == 'default'">
 			<div class="big-btn" ng-click="mode = 'identify'">Identify</div>
 			<div class="big-btn claim" ng-click="mode = 'claim'">Claim</div>
@@ -19,6 +19,15 @@
 		<div class="btn-row" ng-show"mode == 'identify'">
 			<div class="big-btn" ng-show="mode = 'details'">Use my location</div>
 			<div class="msg">or tap the map</div>
+		</div>
+		<!-- Show after clicking 'Claim' -->
+		<div class="" ng-show="mode == 'claim'">
+		</div>
+		<!-- Show after solving a claim -->
+		<div class="" ng-show="mode == ''">
+		</div>
+		<div class="" id="map">
+			<img src="http://placehold.it/800x1000/">
 		</div>
 		<!-- Show after choosing location -->
 		<div class="add-details" ng-show="mode == 'details'">
@@ -29,14 +38,7 @@
 				<option>Pothole</option>
 			</select>
 			<textarea>Add a description</textarea>
-		</div>
-		<!-- Show after clicking 'Claim' -->
-		<div class="" ng-show="mode == 'claim'">
-		</div>
-		<!-- Show after solving a claim -->
-		<div class="" ng-show="mode == ''">
-		</div>
-		<div class="" id="map">
+			<input type="file" value="Add Image" />
 		</div>
 		<div class="view-details" ng-show="activePoint">
 			<img src="http://placehold.it/150x100" ng-show="activePoint.image" />

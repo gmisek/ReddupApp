@@ -50,7 +50,12 @@ body {
 	box-sizing: border-box;
 }
 
-.view-details {
+#map img {
+	max-width: 100%;
+}
+
+.view-details,
+.add-details {
 	background: #333;
 	padding: 0.5em;
 	overflow: hidden;
@@ -66,4 +71,10 @@ body {
 .view-details .meta {
 	font-size: 0.75em;
 	color: #ddd;
+}
+
+select {
+	background: #444;
+	-webkit-appearance: none;
+	color: #fff;
 }
