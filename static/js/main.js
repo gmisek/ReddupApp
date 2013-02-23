@@ -15,8 +15,15 @@ angular.module('steelCityReddUp', ['ui']);
 /*
 	Maps
 */
-function Controller($scope) {
-	$scope.mode = 'default';
+var Controller = function ($scope) {
+	$scope.mode = {
+		select: true,
+		identify: false,
+		details: false,
+		claim: false,
+		solve: false
+	};
+	$scope.test = "TESTING";
 	$scope.markers = [];
 	$scope.currentMarker = null;
 	$scope.mapOptions = {
@@ -28,6 +35,13 @@ function Controller($scope) {
 	$scope.$watch('markers', function(){
 		$scope.addAllMarkers();
 	});
+
+	$scope.setMode = function (mode) {
+		$angular.forEach($scope.mode, function(item) {
+			item = false;
+		});
+		$scope.mode[mode] = true;
+	};
 
 	$scope.fetchPoints = function() {
 		$('#spinner').spin();
@@ -63,10 +77,10 @@ function Controller($scope) {
 
 	$scope.clearMarkers = function () {
 		$.each($scope.markers, function(marker){
-			marker.setMap(null);
+			//marker.setMap(null);
 		});
 	};
-}
+};
 
 var samplePoints = [
 	{

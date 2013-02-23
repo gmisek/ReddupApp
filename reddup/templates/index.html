@@ -9,23 +9,25 @@
 	<link rel="stylesheet" href="{{ STATIC_URL }}css/main.css" />
 
 	<link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:300' rel='stylesheet' type='text/css'>
+
+	
 </head>
 <body>
 	
 	<div class="wrap" ng-controller="Controller">
 		<div class="name-row">Steel City <span style="color: #cfac0b;">Redd Up</span></div>
-
-		<div class="btn-row" ng-show="mode == 'default'">
-			<div class="big-btn" ng-click="mode = 'identify'">Identify</div>
-			<div class="big-btn claim" ng-click="mode = 'claim'">Claim</div>
+		{{ test }}
+		<div class="btn-row" ng-show="mode.select">
+			<div class="big-btn" ng-click="setMode('identify')">Identify</div>
+			<div class="big-btn claim" ng-click="mode.claim">Claim</div>
 		</div>
 		<!-- Show after clicking 'Identify' -->
-		<div class="btn-row" ng-show"mode == 'identify'">
+		<div class="btn-row" ng-show="mode.identify">
 			<div class="big-btn" ng-show="mode = 'details'">Use my location</div>
-			<div class="msg">or tap the map {{ mode }}</div>
+			<div class="msg">or tap the map {{ mode.identify }}</div>
 		</div>
 		<!-- Show after clicking 'Claim' -->
-		<div class="" ng-show="mode == 'claim'">
+		<div class="" ng-show="mode.claim">
 		</div>
 		<!-- Show after solving a claim -->
 		<div class="" ng-show="mode == ''">
@@ -34,7 +36,7 @@
 			<img src="http://placehold.it/800x1000/">
 		</div>
 		<!-- Show after choosing location -->
-		<div class="add-details" ng-show="mode == 'details'">
+		<div class="add-details" ng-show="mode.details">
 			<div class="close">&times;</div>
 			<div class="content">
 				<select>
@@ -60,10 +62,6 @@
 		</div>
 	</div>
 
-	<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.js"></script>
-	<script type="text/javascript" src="{{ STATIC_URL }}js/angular.js"></script>
-	<script type="text/javascript" src="{{ STATIC_URL }}js/angular-ui.js"></script>
-	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWdiN0-v4BAY7TI9tno96e8VjFMHET1nU&sensor=true"></script>
-	<script type="text/javascript" src="{{ STATIC_URL }}js/main.js"></script>
+	
 </body>
 </html>
