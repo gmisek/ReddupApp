@@ -1,0 +1,618 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.1.8
+-- Dumped by pg_dump version 9.1.8
+-- Started on 2013-02-23 15:17:27 EST
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = off;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET escape_string_warning = off;
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- TOC entry 189 (class 1259 OID 18033)
+-- Dependencies: 5
+-- Name: scru_category; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE scru_category (
+    id integer NOT NULL,
+    name character varying(100) NOT NULL,
+    appkey character varying(50) NOT NULL
+);
+
+
+ALTER TABLE public.scru_category OWNER TO postgres;
+
+--
+-- TOC entry 188 (class 1259 OID 18031)
+-- Dependencies: 189 5
+-- Name: scru_category_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE scru_category_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.scru_category_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2897 (class 0 OID 0)
+-- Dependencies: 188
+-- Name: scru_category_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE scru_category_id_seq OWNED BY scru_category.id;
+
+
+--
+-- TOC entry 185 (class 1259 OID 18014)
+-- Dependencies: 2844 2845 2846 5 1301
+-- Name: scru_issue; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE scru_issue (
+    id integer NOT NULL,
+    status character varying(100) NOT NULL,
+    description character varying(500) NOT NULL,
+    before_img character varying(100),
+    after_img character varying(100),
+    date_opened timestamp with time zone,
+    date_closed timestamp with time zone,
+    opener_id_id integer NOT NULL,
+    closer_id_id integer NOT NULL,
+    cleaner_id_id integer NOT NULL,
+    category_id_id integer NOT NULL,
+    reported_to_311 boolean,
+    location_type_id_id integer NOT NULL,
+    geom geometry NOT NULL,
+    CONSTRAINT enforce_dims_geom CHECK ((st_ndims(geom) = 2)),
+    CONSTRAINT enforce_geotype_geom CHECK (((geometrytype(geom) = 'POINT'::text) OR (geom IS NULL))),
+    CONSTRAINT enforce_srid_geom CHECK ((st_srid(geom) = 4326))
+);
+
+
+ALTER TABLE public.scru_issue OWNER TO postgres;
+
+--
+-- TOC entry 184 (class 1259 OID 18012)
+-- Dependencies: 5 185
+-- Name: scru_issue_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE scru_issue_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.scru_issue_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2898 (class 0 OID 0)
+-- Dependencies: 184
+-- Name: scru_issue_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE scru_issue_id_seq OWNED BY scru_issue.id;
+
+
+--
+-- TOC entry 191 (class 1259 OID 18041)
+-- Dependencies: 5
+-- Name: scru_issueuser; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE scru_issueuser (
+    id integer NOT NULL,
+    issue_id_id integer NOT NULL,
+    user_id_id integer NOT NULL,
+    "timestamp" timestamp with time zone
+);
+
+
+ALTER TABLE public.scru_issueuser OWNER TO postgres;
+
+--
+-- TOC entry 190 (class 1259 OID 18039)
+-- Dependencies: 191 5
+-- Name: scru_issueuser_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE scru_issueuser_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.scru_issueuser_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2899 (class 0 OID 0)
+-- Dependencies: 190
+-- Name: scru_issueuser_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE scru_issueuser_id_seq OWNED BY scru_issueuser.id;
+
+
+--
+-- TOC entry 187 (class 1259 OID 18025)
+-- Dependencies: 5
+-- Name: scru_locationtype; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE scru_locationtype (
+    id integer NOT NULL,
+    name character varying(100) NOT NULL,
+    appkey character varying(50) NOT NULL
+);
+
+
+ALTER TABLE public.scru_locationtype OWNER TO postgres;
+
+--
+-- TOC entry 186 (class 1259 OID 18023)
+-- Dependencies: 5 187
+-- Name: scru_locationtype_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE scru_locationtype_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.scru_locationtype_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2900 (class 0 OID 0)
+-- Dependencies: 186
+-- Name: scru_locationtype_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE scru_locationtype_id_seq OWNED BY scru_locationtype.id;
+
+
+--
+-- TOC entry 193 (class 1259 OID 18049)
+-- Dependencies: 2851 2852 2853 2854 1301 5
+-- Name: scru_pledge; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE scru_pledge (
+    id integer NOT NULL,
+    user_id_id integer NOT NULL,
+    radius integer,
+    geom geometry NOT NULL,
+    CONSTRAINT enforce_dims_geom CHECK ((st_ndims(geom) = 2)),
+    CONSTRAINT enforce_geotype_geom CHECK (((geometrytype(geom) = 'POINT'::text) OR (geom IS NULL))),
+    CONSTRAINT enforce_srid_geom CHECK ((st_srid(geom) = 4326)),
+    CONSTRAINT scru_pledge_radius_check CHECK ((radius >= 0))
+);
+
+
+ALTER TABLE public.scru_pledge OWNER TO postgres;
+
+--
+-- TOC entry 192 (class 1259 OID 18047)
+-- Dependencies: 193 5
+-- Name: scru_pledge_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE scru_pledge_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.scru_pledge_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2901 (class 0 OID 0)
+-- Dependencies: 192
+-- Name: scru_pledge_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE scru_pledge_id_seq OWNED BY scru_pledge.id;
+
+
+--
+-- TOC entry 2848 (class 2604 OID 18036)
+-- Dependencies: 188 189 189
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY scru_category ALTER COLUMN id SET DEFAULT nextval('scru_category_id_seq'::regclass);
+
+
+--
+-- TOC entry 2843 (class 2604 OID 18017)
+-- Dependencies: 184 185 185
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY scru_issue ALTER COLUMN id SET DEFAULT nextval('scru_issue_id_seq'::regclass);
+
+
+--
+-- TOC entry 2849 (class 2604 OID 18044)
+-- Dependencies: 190 191 191
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY scru_issueuser ALTER COLUMN id SET DEFAULT nextval('scru_issueuser_id_seq'::regclass);
+
+
+--
+-- TOC entry 2847 (class 2604 OID 18028)
+-- Dependencies: 186 187 187
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY scru_locationtype ALTER COLUMN id SET DEFAULT nextval('scru_locationtype_id_seq'::regclass);
+
+
+--
+-- TOC entry 2850 (class 2604 OID 18052)
+-- Dependencies: 192 193 193
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY scru_pledge ALTER COLUMN id SET DEFAULT nextval('scru_pledge_id_seq'::regclass);
+
+
+--
+-- TOC entry 2888 (class 0 OID 18033)
+-- Dependencies: 189 2893
+-- Data for Name: scru_category; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY scru_category (id, name, appkey) FROM stdin;
+1	Pothole	POTHOLE
+2	Litter	LITTER
+3	Overgrown Lot	OVERGROWN_LOT
+\.
+
+
+--
+-- TOC entry 2902 (class 0 OID 0)
+-- Dependencies: 188
+-- Name: scru_category_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('scru_category_id_seq', 3, true);
+
+
+--
+-- TOC entry 2884 (class 0 OID 18014)
+-- Dependencies: 185 2893
+-- Data for Name: scru_issue; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY scru_issue (id, status, description, before_img, after_img, date_opened, date_closed, opener_id_id, closer_id_id, cleaner_id_id, category_id_id, reported_to_311, location_type_id_id, geom) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2903 (class 0 OID 0)
+-- Dependencies: 184
+-- Name: scru_issue_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('scru_issue_id_seq', 1, false);
+
+
+--
+-- TOC entry 2890 (class 0 OID 18041)
+-- Dependencies: 191 2893
+-- Data for Name: scru_issueuser; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY scru_issueuser (id, issue_id_id, user_id_id, "timestamp") FROM stdin;
+\.
+
+
+--
+-- TOC entry 2904 (class 0 OID 0)
+-- Dependencies: 190
+-- Name: scru_issueuser_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('scru_issueuser_id_seq', 1, false);
+
+
+--
+-- TOC entry 2886 (class 0 OID 18025)
+-- Dependencies: 187 2893
+-- Data for Name: scru_locationtype; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY scru_locationtype (id, name, appkey) FROM stdin;
+1	Publicly Owned	PUBLIC
+2	Bike Paths	BIKE_PATHS
+3	Waterways	WATER
+4	Vacant Parcel	VACANT
+5	Parks	PARK
+6	Riverfront Trails	RIVERFRONT
+7	Greenway	GREENWAY
+8	Parking	PARKING
+\.
+
+
+--
+-- TOC entry 2905 (class 0 OID 0)
+-- Dependencies: 186
+-- Name: scru_locationtype_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('scru_locationtype_id_seq', 8, true);
+
+
+--
+-- TOC entry 2892 (class 0 OID 18049)
+-- Dependencies: 193 2893
+-- Data for Name: scru_pledge; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY scru_pledge (id, user_id_id, radius, geom) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2906 (class 0 OID 0)
+-- Dependencies: 192
+-- Name: scru_pledge_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('scru_pledge_id_seq', 1, false);
+
+
+--
+-- TOC entry 2866 (class 2606 OID 18038)
+-- Dependencies: 189 189 2894
+-- Name: scru_category_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY scru_category
+    ADD CONSTRAINT scru_category_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2862 (class 2606 OID 18022)
+-- Dependencies: 185 185 2894
+-- Name: scru_issue_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY scru_issue
+    ADD CONSTRAINT scru_issue_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2869 (class 2606 OID 18046)
+-- Dependencies: 191 191 2894
+-- Name: scru_issueuser_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY scru_issueuser
+    ADD CONSTRAINT scru_issueuser_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2864 (class 2606 OID 18030)
+-- Dependencies: 187 187 2894
+-- Name: scru_locationtype_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY scru_locationtype
+    ADD CONSTRAINT scru_locationtype_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2873 (class 2606 OID 18055)
+-- Dependencies: 193 193 2894
+-- Name: scru_pledge_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY scru_pledge
+    ADD CONSTRAINT scru_pledge_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2855 (class 1259 OID 18079)
+-- Dependencies: 185 2894
+-- Name: scru_issue_category_id_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX scru_issue_category_id_id ON scru_issue USING btree (category_id_id);
+
+
+--
+-- TOC entry 2856 (class 1259 OID 18073)
+-- Dependencies: 185 2894
+-- Name: scru_issue_cleaner_id_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX scru_issue_cleaner_id_id ON scru_issue USING btree (cleaner_id_id);
+
+
+--
+-- TOC entry 2857 (class 1259 OID 18067)
+-- Dependencies: 185 2894
+-- Name: scru_issue_closer_id_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX scru_issue_closer_id_id ON scru_issue USING btree (closer_id_id);
+
+
+--
+-- TOC entry 2858 (class 1259 OID 18084)
+-- Dependencies: 2240 185 2894
+-- Name: scru_issue_geom_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX scru_issue_geom_id ON scru_issue USING gist (geom);
+
+
+--
+-- TOC entry 2859 (class 1259 OID 18090)
+-- Dependencies: 185 2894
+-- Name: scru_issue_location_type_id_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX scru_issue_location_type_id_id ON scru_issue USING btree (location_type_id_id);
+
+
+--
+-- TOC entry 2860 (class 1259 OID 18061)
+-- Dependencies: 185 2894
+-- Name: scru_issue_opener_id_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX scru_issue_opener_id_id ON scru_issue USING btree (opener_id_id);
+
+
+--
+-- TOC entry 2867 (class 1259 OID 18096)
+-- Dependencies: 191 2894
+-- Name: scru_issueuser_issue_id_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX scru_issueuser_issue_id_id ON scru_issueuser USING btree (issue_id_id);
+
+
+--
+-- TOC entry 2870 (class 1259 OID 18102)
+-- Dependencies: 191 2894
+-- Name: scru_issueuser_user_id_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX scru_issueuser_user_id_id ON scru_issueuser USING btree (user_id_id);
+
+
+--
+-- TOC entry 2871 (class 1259 OID 18116)
+-- Dependencies: 193 2240 2894
+-- Name: scru_pledge_geom_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX scru_pledge_geom_id ON scru_pledge USING gist (geom);
+
+
+--
+-- TOC entry 2874 (class 1259 OID 18108)
+-- Dependencies: 193 2894
+-- Name: scru_pledge_user_id_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX scru_pledge_user_id_id ON scru_pledge USING btree (user_id_id);
+
+
+--
+-- TOC entry 2878 (class 2606 OID 18074)
+-- Dependencies: 185 189 2865 2894
+-- Name: category_id_id_refs_id_4449dcaf2203608f; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY scru_issue
+    ADD CONSTRAINT category_id_id_refs_id_4449dcaf2203608f FOREIGN KEY (category_id_id) REFERENCES scru_category(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 2877 (class 2606 OID 18068)
+-- Dependencies: 176 185 2894
+-- Name: cleaner_id_id_refs_id_2d44aeacc51333e1; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY scru_issue
+    ADD CONSTRAINT cleaner_id_id_refs_id_2d44aeacc51333e1 FOREIGN KEY (cleaner_id_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 2876 (class 2606 OID 18062)
+-- Dependencies: 176 185 2894
+-- Name: closer_id_id_refs_id_2d44aeacc51333e1; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY scru_issue
+    ADD CONSTRAINT closer_id_id_refs_id_2d44aeacc51333e1 FOREIGN KEY (closer_id_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 2880 (class 2606 OID 18091)
+-- Dependencies: 185 2861 191 2894
+-- Name: issue_id_id_refs_id_4dbb07b5e835cf80; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY scru_issueuser
+    ADD CONSTRAINT issue_id_id_refs_id_4dbb07b5e835cf80 FOREIGN KEY (issue_id_id) REFERENCES scru_issue(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 2879 (class 2606 OID 18085)
+-- Dependencies: 2863 185 187 2894
+-- Name: location_type_id_id_refs_id_4ca3be0395dcea54; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY scru_issue
+    ADD CONSTRAINT location_type_id_id_refs_id_4ca3be0395dcea54 FOREIGN KEY (location_type_id_id) REFERENCES scru_locationtype(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 2875 (class 2606 OID 18056)
+-- Dependencies: 176 185 2894
+-- Name: opener_id_id_refs_id_2d44aeacc51333e1; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY scru_issue
+    ADD CONSTRAINT opener_id_id_refs_id_2d44aeacc51333e1 FOREIGN KEY (opener_id_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 2881 (class 2606 OID 18097)
+-- Dependencies: 176 191 2894
+-- Name: user_id_id_refs_id_278360e38a63f826; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY scru_issueuser
+    ADD CONSTRAINT user_id_id_refs_id_278360e38a63f826 FOREIGN KEY (user_id_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 2882 (class 2606 OID 18103)
+-- Dependencies: 193 176 2894
+-- Name: user_id_id_refs_id_2e22b0c2b863b75c; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY scru_pledge
+    ADD CONSTRAINT user_id_id_refs_id_2e22b0c2b863b75c FOREIGN KEY (user_id_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+-- Completed on 2013-02-23 15:17:27 EST
+
+--
+-- PostgreSQL database dump complete
+--
+
