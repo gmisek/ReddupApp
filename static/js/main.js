@@ -32,7 +32,7 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
 	};
 
 	$scope.$watch('markers', function(){
-		$scope.addAllMarkers();
+		$scope.refreshMarkers();
 	});
 
 	$scope.setMode = function (mode) {
@@ -48,39 +48,50 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
 
 	$scope.fetchPoints = function() {
 		$('#spinner').spin();
-		$.getJSON(
-			"url",
-			function (data) {
-				$('#spinner').stop();
-				// TODO: change to $scope.markers = data;
-				$scope.markers = samplePoints;
-			}
-		);
+		$scope.markers = samplePoints;
+		$('#spinner').stop();
+
+		// $.getJSON(
+		// 	"url",
+		// 	function (data) {
+		// 		$('#spinner').stop();
+		// 		// TODO: change to $scope.markers = data;
+		// 	}
+		// );
 	};
 
-	$scope.addMarker = function(latLng) {
+	$scope.addIssue = function(event) {
+		//TODO: push to server
+		$http({
+			url: "url",
+		    method: "POST",
+		    data: {"foo":"bar"}
+		}).success(function(data, status, headers, config) {
+    		//
+    	}).error(function(data, status, headers, config) {
+    		//
+    	});
+	};
+
+	$scope.addMarker = function(latLng, color) {
 		$scope.markers.push(new google.maps.Marker({
 			map: $scope.map,
 			position: latLng
 		}));
 	};
 
-	$scope.addIssue = function(event) {
-		//TODO: push to server
-		$http.post()
-		.success();
+	$scope.removeMarker = function (marker) {
+		marker.setMap(null);
 	};
 
-	$scope.addAllMarkers = function	() {
-		$scope.clearMarkers();
-		$.each($scope.markers, function(){
-			$scope.addMarker
-		});
-	};
-
-	$scope.clearMarkers = function () {
+	// Clear all markers. Add all markers from $scope.markers to map
+	var refreshMarkers = function () {
 		$.each($scope.markers, function(marker){
-			//marker.setMap(null);
+			marker.setMap(null);
+		});
+
+		$.each($scope.markers, function(){
+			$scope.addMarker();
 		});
 	};
 }]);
