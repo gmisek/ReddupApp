@@ -1,4 +1,5 @@
-from django.db import models
+#from django.db import models
+from django.contrib.gis.db import models
 from django.contrib.gis.db.models import PointField
 from django.contrib.auth.models import User
 
@@ -27,6 +28,7 @@ class Issue(models.Model):
     category_id = models.ForeignKey(Category)
     reported_to_311 = models.NullBooleanField()
     geom = PointField()
+    objects = models.GeoManager()
     location_type_id = models.ForeignKey(LocationType)
     def __unicode__(self):
         return self.description
@@ -44,4 +46,5 @@ class IssueUser(models.Model):
 class Pledge(models.Model):
     user_id = models.ForeignKey(User)
     geom = PointField()
+    objects = models.GeoManager()
     radius = models.PositiveIntegerField(default=1, blank=True, null=True)

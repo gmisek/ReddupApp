@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <script src='http://openlayers.org/api/OpenLayers.js'></script>
+
+    <script type="text/javascript">
+        var map, layer;
+        function init(){
+            map = new OpenLayers.Map( 'map');
+            layer = new OpenLayers.Layer.OSM( "Simple OSM Map");
+            map.addLayer(layer);
+            map.setCenter(
+                    new OpenLayers.LonLat(-79.9961, 40.4406).transform(
+                            new OpenLayers.Projection("EPSG:4326"),
+                            map.getProjectionObject()
+                    ), 12
+            );
+//create a style object
+            var style = new OpenLayers.Style();
+//rule used for all polygons
+            var rule_snow = new OpenLayers.Rule({
+                symbolizer: {
+                    fillColor: "#ff9a9a",
+                    fillOpacity: 0.5,
+                    strokeColor: "#000000",
+                    strokeWidth: 1,
+                    strokeDashstyle: "dash",
+                    label: "${name}",
+                    labelAlign: "cc",
+                    fontColor: "#333333",
+                    fontOpacity: 0.9,
+                    fontFamily: "Arial",
+                    fontSize: 14}
+            });
+            var rule_highlight = new OpenLayers.Rule({
+                filter: new OpenLayers.Filter.Comparison({
+                    type: OpenLayers.Filter.Comparison.EQUAL_TO,
+                    property: "active",
+                    value: "1",
+                }),
+                symbolizer: {
+                    fillColor: "#FF7144",
+                    fillOpacity: 0.6,
+                    strokeColor: "#FF0000",
+                    strokeWidth: 2,
+                    strokeDashstyle: "solid",
+                    label: " ${name}",
+                    labelAlign: "cc",
+                    fontColor: "#000000",
+                    fontOpacity: 1,
+                    fontFamily: "Arial",
+                    fontSize: 16,
+                    fontWeight: "600"}
+            });
+            style.addRules([rule_snow, rule_highlight]);
+
+            var snow_zones = {{ snow_zones }};
+            var broken_meter = {{ broken_meter }};
+            var geojson_format  = new OpenLayers.Format.GeoJSON({
+                'internalProjection': new OpenLayers.Projection("EPSG:900913"),
+                'externalProjection': new OpenLayers.Projection("EPSG:4326")
+            });
+            var snow_layer = new OpenLayers.Layer.Vector("Snow Zones", {
+                styleMap: style});
+            map.addLayer(snow_layer);
+            var meter_layer = new OpenLayers.Layer.Vector("Broken Meters", {
+                styleMap: style});
+            map.addLayer(meter_layer);
+            snow_layer.addFeatures(geojson_format.read(snow_zones));
+            meter_layer.addFeatures(geojson_format.read(broken_meter));
+
+        }
+    </script>
+    <style>
+        .smallmap {
+            width: 1000px;
+            height: 512px;
+            border: 1px solid #ccc;
+        }
+    </style>
+    <title></title>
+</head>
+<body onload="init()">
+<div id="map" class="smallmap"></div>
+</body>
+</html>
