@@ -1,4 +1,4 @@
-from .models import Issue
+from .models import *
 from django.template import Context, loader, RequestContext
 from django.http import HttpResponse, Http404
 from django.shortcuts import render, get_object_or_404, render_to_response, HttpResponseRedirect
@@ -10,7 +10,7 @@ def index(request):
     return render_to_response('index.html', {}, RequestContext(request))
 
 @csrf_exempt
-def create_issue(request):
+def open_issue(request):
     if request.method == 'POST':
         status = 'open'
         opener_id = request.POST.get('opener_id')
@@ -26,9 +26,58 @@ def create_issue(request):
                       category_id=category_id, reported_to_311=reported_to_311, location_type_id=location_type_id,
                       geom=pnt)
         issue.save()
-        return HttpResponse(json.dumps({'success':True}), content_type='application/json')
+
+        report = IssueUser(issue_id=issue.id, reporter_id=opener_id)
+        report.save()
+
+        return HttpResponse(json.dumps({'success': True}), content_type='application/json')
     else:
-        return HttpResponse("you didn't POST any data, bro")
+        return HttpResponse(json.dumps({'success': False}), content_type='application/json')
 
 
-    # call create here
+@csrf_exempt
+def close_issue(request):
+    if request.method == 'POST':
+        issue_id = request.POST.get('issue_id')
+        after_img = request.POST.get('after_img')
+        status = 'closed'
+        closer_id = request.POST.get('closer_id')
+        cleaner_id = request.POST.get('cleaner_id')
+
+        issue = Issue.objects.get(pk=issue_id)
+        issue.after_img = after_img
+        issue.status = status
+        issue.closer_id = closer_id
+        issue.cleaner_id = cleaner_id
+        issue.save()
+        return HttpResponse(json.dumps({'success': True}), content_type='application/json')
+    else:
+        return HttpResponse(json.dumps({'success': False}), content_type='application/json')
+
+
+@csrf_exempt
+def reup_issue(request):
+    if request.method == 'POST':
+        issue_id = request.POST.get('issue_id')
+        reporter_id = request.POST.get('reporter_id')
+
+        report = IssueUser(issue_id=issue_id, reporter_id=reporter_id)
+        report.save()
+        return HttpResponse(json.dumps({'success': True}), content_type='application/json')
+    else:
+        return HttpResponse(json.dumps({'success': False}), content_type='application/json')
+
+
+@csrf_exempt
+def create_pledge(request):
+    if request.method == 'POST':
+        user_id = request.POST.get('user_id')
+        longitude = request.POST.get('longitude')
+        latitude = request.POST.get('latitude')
+        pnt = Point(longitude, latitude)
+
+        pledge = Pledge(user_id=user_id, geom=pnt)
+        pledge.save()
+        return HttpResponse(json.dumps({'success': True}), content_type='application/json')
+    else:
+        return HttpResponse(json.dumps({'success': False}), content_type='application/json')

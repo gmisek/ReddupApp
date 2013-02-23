@@ -17,6 +17,9 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 
     url(r'^$', 'scru.views.index', name='index'),
-    url(r'^issue/new', 'scru.views.create_issue', name='create_issue'),
+    url(r'^issue/open', 'scru.views.open_issue', name='open_issue'),
+    url(r'^issue/(?P<issue_id>\d+)/close', 'scru.views.close_issue', name='close_issue'),
+    url(r'^issue/(?P<issue_id>\d+)/reup', 'scru.views.reup_issue', name='reup_issue'),
+    url(r'^pledge/new', 'scru.views.create_pledge', name='create_pledge'),
    # url(r'/^$',)
 )
