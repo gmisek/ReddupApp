@@ -24,7 +24,7 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
 		solve: false
 	};
 	$scope.issues = [];
-	$scope.currentMarker = null;
+	$scope.activeIssue = null;
 	$scope.newIssue = {};
 	$scope.mapOptions = {
 		center: new google.maps.LatLng(40.4406, -79.9961),
