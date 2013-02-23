@@ -18,15 +18,17 @@ function Controller($scope) {
 	$scope.mode = 'default';
 	$scope.markers = [];
 	$scope.currentMarker = null;
-
 	$scope.mapOptions = {
 		center: new google.maps.LatLng(40.4406, -79.9961),
 		zoom: 12,
 		mapTypeId: google.maps.MapTypeId.ROADMAP
 	}
 
+	$scope.$observe('markers', function(){
+		$scope.addAllMarkers();
+	});
+
 	$scope.fetchPoints = function() {
-		$scope.clearMarkers();
 		$('#spinner').spin();
 		$.getJSON(
 			"url",
@@ -38,12 +40,26 @@ function Controller($scope) {
 		);
 	}
 
-	$scope.addMarker = function($event) {
+	$scope.addMarker = function() {
+		
+	}
+
+	$scope.addIssue = function(event) {
+		//TODO: push to server
+		$http()
+		.success();
 		$scope.markers.push(new google.maps.Marker({
 			map: $scope.map,
 			position: $event.latLng
 		}));
 	}
+
+	$scope.addAllMarkers = function	() {
+		$scope.clearMarkers();
+		$.each($scope.markers, function(){
+			$scope.addMarker
+		});
+	};
 
 	$scope.clearMarkers = function () {
 		$.each($scope.markers, function(marker){
