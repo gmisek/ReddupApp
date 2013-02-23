@@ -83,7 +83,7 @@ def create_pledge(request):
         return HttpResponse(json.dumps({'success': False}), content_type='application/json')
 
 @csrf_exempt
-def create_claim(request):
+def claim_issue(request):
     if request.method == 'POST':
         user_id = request.POST.get('user_id')
         issue_id = request.POST.get('issue_id')
