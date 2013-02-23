@@ -14,14 +14,13 @@
 	
 	<div class="wrap" ng-controller="Controller">
 		<div class="name-row">Steel City <span style="color: #cfac0b;">Redd Up</span></div>
-		{{ test }}
 		<div class="btn-row" ng-show="mode.select">
 			<div class="big-btn" ng-click="setMode('identify')">Identify</div>
 			<div class="big-btn claim" ng-click="mode.claim">Claim</div>
 		</div>
 		<!-- Show after clicking 'Identify' -->
 		<div class="btn-row" ng-show="mode.identify">
-			<div class="big-btn" ng-show="mode = 'details'">Use my location</div>
+			<div class="big-btn" ng-show="mode.details">Use my location</div>
 			<div class="msg">or tap the map {{ mode.identify }}</div>
 		</div>
 		<!-- Show after clicking 'Claim' -->

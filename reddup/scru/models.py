@@ -33,6 +33,11 @@ class Issue(models.Model):
     def __unicode__(self):
         return self.description
 
+class Claim(models.Model):
+    issue_id = models.ForeignKey(Issue)
+    user_id = models.ForeignKey(User)
+    timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+
 class IssueUser(models.Model):
     issue_id = models.ForeignKey(Issue)
     user_id = models.ForeignKey(User)
