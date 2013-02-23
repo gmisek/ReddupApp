@@ -7,6 +7,7 @@ import json
 from django.contrib.gis.geos import Point
 from vectorformats.Formats import Django, GeoJSON
 from django.utils.safestring import SafeString
+import simplejson
 
 
 def index(request):
@@ -24,21 +25,25 @@ def all_issues(request):
 def open_issue(request):
     if request.method == 'POST':
         status = 'open'
-        opener_id = request.POST.get('opener_id')
-        description = request.POST.get('description')
-        before_img = request.POST.get('before_img')
-        category_id = request.POST.get('category_id')
-        reported_to_311 = request.POST.get('reported_to_311')
-        location_type_id = request.POST.get('location_type_id')
-        longitude = float(request.POST.get('longitude'))
-        latitude = float(request.POST.get('latitude'))
-        pnt = Point(longitude, latitude)
-        issue = Issue(status=status, opener_id=opener_id, description=description, before_img=before_img,
+
+        data = simplejson.loads(request.raw_post_data)
+
+        opener_id = User.objects.get(pk=data['opener_id'])
+        description = data['description']
+        #TODObefore_img = data['before_img']
+        category_id = Category.objects.get(pk=1) #data['category_id']
+        reported_to_311 = data['reported_to_311']
+        location_type_id = LocationType.objects.get(pk=data['location_type_id'])
+        longitude = data['longitude']
+        latitude = data['latitude']
+
+        pnt = Point(float(longitude), float(latitude))
+        issue = Issue(status=status, opener_id=opener_id, description=description, #before_img=before_img,
                       category_id=category_id, reported_to_311=reported_to_311, location_type_id=location_type_id,
                       geom=pnt)
         issue.save()
 
-        report = IssueUser(issue_id=issue.id, reporter_id=opener_id)
+        report = IssueUser(issue_id=issue, user_id=opener_id)
         report.save()
 
         return HttpResponse(json.dumps({'success': True}), content_type='application/json')
