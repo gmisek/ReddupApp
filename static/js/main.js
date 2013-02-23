@@ -73,7 +73,7 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
     	});
 	};
 
-	$scope.addMarker = function(latLng, color) {
+	$scope.addMarker = function(latLng) {
 		$scope.markers.push(new google.maps.Marker({
 			map: $scope.map,
 			position: latLng
