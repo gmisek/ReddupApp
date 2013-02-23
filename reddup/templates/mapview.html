@@ -57,8 +57,7 @@
             });
             style.addRules([rule_snow, rule_highlight]);
 
-            var snow_zones = {{ snow_zones }};
-            var broken_meter = {{ broken_meter }};
+            var issues = {{ issues }};
             var geojson_format  = new OpenLayers.Format.GeoJSON({
                 'internalProjection': new OpenLayers.Projection("EPSG:900913"),
                 'externalProjection': new OpenLayers.Projection("EPSG:4326")
@@ -69,8 +68,8 @@
             var meter_layer = new OpenLayers.Layer.Vector("Broken Meters", {
                 styleMap: style});
             map.addLayer(meter_layer);
-            snow_layer.addFeatures(geojson_format.read(snow_zones));
-            meter_layer.addFeatures(geojson_format.read(broken_meter));
+            //snow_layer.addFeatures(geojson_format.read(snow_zones));
+            meter_layer.addFeatures(geojson_format.read(issues));
 
         }
     </script>

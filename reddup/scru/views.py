@@ -5,9 +5,19 @@ from django.shortcuts import render, get_object_or_404, render_to_response, Http
 from django.views.decorators.csrf import csrf_exempt
 import json
 from django.contrib.gis.geos import Point
+from vectorformats.Formats import Django, GeoJSON
+from django.utils.safestring import SafeString
+
 
 def index(request):
     return render_to_response('index.html', {}, RequestContext(request))
+
+
+def all_issues(request):
+    geoj = GeoJSON.GeoJSON()
+    djf = Django.Django(geodjango='geom', properties=['description'])
+    issues = geoj.encode(djf.decode(Issue.objects.filter(status='open')))
+    return render_to_response('mapview.html', {'issues': SafeString(issues)}, RequestContext(request))
 
 @csrf_exempt
 def open_issue(request):
