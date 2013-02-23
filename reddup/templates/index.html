@@ -1,3 +1,67 @@
+<!DOCTYPE html>
 <html>
-    <h1>What up dog</h1>
+<head>
+	<title>Steel City Reddup - {% block title %}{% endblock %}</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" href="static/css/normalize.css" />
+	<link rel="stylesheet" href="static/css/main.css" />
+
+	<link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:300' rel='stylesheet' type='text/css'>
+</head>
+<body>
+	
+	<div class="wrap">
+		<div class="name-row">Steel City <span style="color: #cfac0b;">Redd Up</span></div>
+		<div class="btn-row" ng-show="mode == 'default'">
+			<div class="big-btn" ng-click="mode = 'identify'">Identify</div>
+			<div class="big-btn claim" ng-click="mode = 'claim'">Claim</div>
+		</div>
+		<!-- Show after clicking 'Identify' -->
+		<div class="btn-row" ng-show"mode == 'identify'">
+			<div class="big-btn" ng-show="mode = 'details'">Use my location</div>
+			<div class="msg">or tap the map</div>
+		</div>
+		<!-- Show after clicking 'Claim' -->
+		<div class="" ng-show="mode == 'claim'">
+		</div>
+		<!-- Show after solving a claim -->
+		<div class="" ng-show="mode == ''">
+		</div>
+		<div class="" id="map">
+			<img src="http://placehold.it/800x1000/">
+		</div>
+		<!-- Show after choosing location -->
+		<div class="add-details" ng-show="mode == 'details'">
+			<div class="close">&times;</div>
+			<div class="content">
+				<select>
+					<option>Select a type</option>
+					<option>Garbage</option>
+					<option>Pothole</option>
+				</select>
+				<textarea placeholder="Add a description">Add a description</textarea>
+				<input type="file" value="Add Image" />
+			</div>
+		</div>
+		<div class="view-details" ng-show="activePoint">
+			<div class="close">&times;</div>
+			<img src="http://placehold.it/150x100" ng-show="activePoint.image" />
+			<div class="type">{{ activePoint.type }}</div>
+			<div class="meta">{{ activePoint.createdBy }} - {{ activePoint.dateCreated }}</div>
+		</div>
+		<div class="user-bar">
+			<span ng-show="!user">Log in to save your contributions</span>
+			<div ng-show="user">
+				<div class="username">username</div>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="static/js/jquery.js"></script>
+	<script type="text/javascript" src="static/js/angular.js"></script>
+	<script type="text/javascript" src="static/js/angular-ui.js"></script>
+	<script type="text/javascript" src="static/js/main.js"></script>
+</body>
 </html>
