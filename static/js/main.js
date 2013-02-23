@@ -10,12 +10,12 @@
 */
 
 
-var myApp = angular.module('steelCityReddUp', ['ui']);
-
-/*
-	Maps
-*/
-var Controller = ['$scope', '$http', function ($scope, $http) {
+var myApp = angular.module('steelCityReddUp', ['ui'])
+.config(function($interpolateProvider) {
+  $interpolateProvider.startSymbol('{[{');
+  $interpolateProvider.endSymbol('}]}');
+})
+.controller('Controller', ['$scope', '$http', function ($scope, $http) {
 	$scope.mode = {
 		select: true,
 		identify: false,
@@ -80,7 +80,7 @@ var Controller = ['$scope', '$http', function ($scope, $http) {
 			//marker.setMap(null);
 		});
 	};
-}];
+}]);
 
 var samplePoints = [
 	{
