@@ -15,6 +15,6 @@ urlpatterns = patterns('',
     url(r'^issue/(?P<issue_id>\d+)/reup', 'scru.views.reup_issue', name='reup_issue'),
     url(r'^issue/(?P<issue_id>\d+)/claim', 'scru.views.claim_issue', name='claim_issue'),
     url(r'^pledge/new', 'scru.views.create_pledge', name='create_pledge'),
-    url(r'^issue/all', 'scru.views.all_issues', name='all_issues'),
+    url(r'^issues', 'scru.views.all_issues', name='all_issues'),
    # url(r'/^$',)
 )
