@@ -16,7 +16,14 @@ class LocationType(models.Model):
         return self.name
 
 class Issue(models.Model):
-    status = models.CharField(max_length=100)
+    OPEN = 'open'
+    CLOSED = 'closed'
+    STATUS_CHOICES = (
+        (OPEN, 'open'),
+        (CLOSED, 'closed'),
+    )
+
+    status = models.CharField(max_length=100, choices=STATUS_CHOICES, default=OPEN)
     description = models.CharField(max_length=500, blank=True, null=True)
     before_img = models.ImageField(upload_to = "static/before_img/", blank=True, null=True)
     after_img = models.ImageField(upload_to = "static/after_img/", blank=True, null=True)
