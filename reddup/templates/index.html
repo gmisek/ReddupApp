@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html ng-app="reddup">
+<html ng-app="steelCityReddUp">
 <head>
 	<title>Steel City Reddup - {% block title %}{% endblock %}</title>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<link rel="stylesheet" href="static/css/normalize.css" />
-	<link rel="stylesheet" href="static/css/main.css" />
+	<link rel="stylesheet" href="{{ STATIC_URL }}css/normalize.css" />
+	<link rel="stylesheet" href="{{ STATIC_URL }}css/main.css" />
 
 	<link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:300' rel='stylesheet' type='text/css'>
 </head>
 <body>
 	
-	<div class="wrap">
+	<div class="wrap" ng-controller="Controller">
 		<div class="name-row">Steel City <span style="color: #cfac0b;">Redd Up</span></div>
 		<div class="btn-row" ng-show="mode == 'default'">
 			<div class="big-btn" ng-click="mode = 'identify'">Identify</div>
@@ -59,9 +59,10 @@
 		</div>
 	</div>
 
-	<script type="text/javascript" src="static/js/jquery.js"></script>
-	<script type="text/javascript" src="static/js/angular.js"></script>
-	<script type="text/javascript" src="static/js/angular-ui.js"></script>
-	<script type="text/javascript" src="static/js/main.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}js/angular.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}js/angular-ui.js"></script>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWdiN0-v4BAY7TI9tno96e8VjFMHET1nU&sensor=true"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}js/main.js"></script>
 </body>
 </html>
