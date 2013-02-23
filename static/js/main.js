@@ -10,7 +10,7 @@
 */
 
 
-angular.module('steelCityReddUp', ['ui'])
+angular.module('steelCityReddUp', ['ui']);
 
 /*
 	Maps
@@ -23,7 +23,7 @@ function Controller($scope) {
 		center: new google.maps.LatLng(40.4406, -79.9961),
 		zoom: 12,
 		mapTypeId: google.maps.MapTypeId.ROADMAP
-	}
+	};
 
 	$scope.$watch('markers', function(){
 		$scope.addAllMarkers();
@@ -39,21 +39,20 @@ function Controller($scope) {
 				$scope.markers = samplePoints;
 			}
 		);
-	}
+	};
 
 	$scope.addMarker = function(latLng) {
 		$scope.markers.push(new google.maps.Marker({
 			map: $scope.map,
 			position: latLng
 		}));
-	}
+	};
 
 	$scope.addIssue = function(event) {
 		//TODO: push to server
-		$http()
+		$http.post()
 		.success();
-		
-	}
+	};
 
 	$scope.addAllMarkers = function	() {
 		$scope.clearMarkers();
@@ -66,7 +65,7 @@ function Controller($scope) {
 		$.each($scope.markers, function(marker){
 			marker.setMap(null);
 		});
-	}
+	};
 }
 
 var samplePoints = [
