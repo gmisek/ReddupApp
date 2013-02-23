@@ -17,6 +17,7 @@ def all_issues(request):
     geoj = GeoJSON.GeoJSON()
     djf = Django.Django(geodjango='geom', properties=['description'])
     issues = geoj.encode(djf.decode(Issue.objects.filter(status='open')))
+    print issues
     return render_to_response('mapview.html', {'issues': SafeString(issues)}, RequestContext(request))
 
 @csrf_exempt
