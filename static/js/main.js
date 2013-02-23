@@ -23,17 +23,13 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
 		claim: false,
 		solve: false
 	};
-	$scope.markers = [];
+	$scope.issues = [];
 	$scope.currentMarker = null;
 	$scope.mapOptions = {
 		center: new google.maps.LatLng(40.4406, -79.9961),
 		zoom: 12,
 		mapTypeId: google.maps.MapTypeId.ROADMAP
 	};
-
-	$scope.$watch('markers', function(){
-		$scope.refreshMarkers();
-	});
 
 	$scope.setMode = function (mode) {
 		$scope.mode = {
@@ -47,15 +43,20 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
 	};
 
 	$scope.fetchPoints = function() {
-		$('#spinner').spin();
-		$scope.markers = samplePoints;
-		$('#spinner').stop();
+		//$('#spinner').spin();
+		$scope.clearMarkers();
+		$scope.issues = sampleIssues;
+		$.each($scope.issues, function (index, issue){
+			issue.marker = $scope.newMarker(issue.lat, issue.lng);
+		});
+		$scope.refreshMarkers();
+		//$('#spinner').stop();
 
 		// $.getJSON(
 		// 	"url",
 		// 	function (data) {
 		// 		$('#spinner').stop();
-		// 		// TODO: change to $scope.markers = data;
+		// 		// TODO: change to $scope.issues = data;
 		// 	}
 		// );
 	};
@@ -67,40 +68,45 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
 		    method: "POST",
 		    data: {"foo":"bar"}
 		}).success(function(data, status, headers, config) {
-    		//
+    		$scope.refreshMarkers();
     	}).error(function(data, status, headers, config) {
     		//
     	});
 	};
 
-	$scope.addMarker = function(latLng) {
-		$scope.markers.push(new google.maps.Marker({
+	$scope.newMarker = function(lat, lng) {
+		return new google.maps.Marker({
 			map: $scope.map,
-			position: latLng
-		}));
-	};
-
-	$scope.removeMarker = function (marker) {
-		marker.setMap(null);
-	};
-
-	// Clear all markers. Add all markers from $scope.markers to map
-	var refreshMarkers = function () {
-		$.each($scope.markers, function(marker){
-			marker.setMap(null);
-		});
-
-		$.each($scope.markers, function(){
-			$scope.addMarker();
+			position: new google.maps.LatLng(parseFloat(lat), parseFloat(lng))
 		});
 	};
+
+	$scope.removeMarker = function (index) {
+		$scope.issues.splice(index, 1)
+	};
+
+	$scope.clearMarkers = function () {
+		$.each($scope.issues, function(index, issue){
+			issue.marker.setMap(null);
+		});
+	};
+
+	$scope.refreshMarkers = function () {
+		$.each($scope.issues, function(index, issue){
+			console.log(issue);
+			issue.marker.setMap($scope.map);
+		});
+	};
+
+	setTimeout(function(){ $scope.fetchPoints(); }, 1000);
 }]);
 
-var samplePoints = [
+var sampleIssues = [
 	{
 		id 				: 1,
 		description 	: "Found some graffiti on the side of an office building on Penn Ave",
-		latLng 			: 'new LatLng(40.462013, -79.926331)',
+		lat 			: '40.462013',
+		lng 			: '-79.926331',
 		beforeImg 		: "before.jpg",
 		afterImg 		: "after.jpg",
 		dateOpened		: 'new Date("Sat Feb 23 2013 11:48:20 GMT-0500 (EST)")',
@@ -115,7 +121,8 @@ var samplePoints = [
 	{
 		id 				: 2,
 		description 	: "Large pothole on Ellsworth Ave",
-		latLng 			: 'new LatLng(40.457736, -79.928359‎)',
+		lat 			: '40.457736',
+		lng 			: '-79.928359‎',
 		beforeImg 		: "before.jpg",
 		afterImg 		: "after.jpg",
 		dateOpened		: 'new Date("Sat Feb 23 2013 13:45:44 GMT-0500 (EST)")',
@@ -130,7 +137,8 @@ var samplePoints = [
 	{
 		id 				: 3,
 		description 	: "Large pothole on Fifth Ave",
-		latLng 			: 'new LatLng(40.453185, -79.918220‎)',
+		lat 			: '40.453185', 
+		lng 			: '-79.918220‎',
 		beforeImg 		: "before.jpg",
 		afterImg 		: "after.jpg",
 		dateOpened		: 'new Date("Sat Feb 23 2013 14:45:44 GMT-0500 (EST)")',

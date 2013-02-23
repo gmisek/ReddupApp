@@ -14,7 +14,7 @@
 	
 	<div class="wrap" ng-controller="Controller">
 		<div class="name-row">Steel City <span style="color: #cfac0b;">Redd Up</span></div>
-		<div class="" id="map_canvas" ui-map="map" ui-event="{'map-click': addMarker($event.latLng)}" >
+		<div class="" id="map_canvas" ui-map="map" ui-event="{'map-click': addMarker($event.latLng)}" ui-options="mapOptions" >
 		</div>
 		<div class="btn-row" ng-show="mode.select">
 			<div class="big-btn full" ng-click="setMode('identify')">Identify</div>
