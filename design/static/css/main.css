@@ -1,0 +1,69 @@
+/* MAIN CSS */
+body {
+	font-family: 'Roboto Condensed';
+	font-weight: 300;
+	font-size: 1em;
+	color: #333;
+}
+
+.name-row {
+	text-align: center;
+	padding: 0.25em 0;
+	background: #eee;
+}
+
+.btn-row {
+	overflow: hidden;
+}
+
+.big-btn {
+	font-size: 1.5em;
+	text-align: center;
+	box-sizing: border-box;
+	padding: 0.25em;
+	width: 50%;
+	float: left;
+	background: #70b5e0;
+	color: #1e5475;
+	cursor: pointer;
+}
+.big-btn:hover,
+.big-btn:active,
+.big-btn:focus {
+	color: #0d2737;
+}
+.big-btn.claim {
+	background: #76b981;
+	color: #2c5e34;
+}
+.big-btn.claim:hover,
+.big-btn.claim:active,
+.big-btn.claim:focus {
+	color: #15361a;
+}
+.msg {
+	background: #eee;
+	float: left;
+	font-size: 1.5em;
+	padding: 0.25em;
+	width: 50%;
+	box-sizing: border-box;
+}
+
+.view-details {
+	background: #333;
+	padding: 0.5em;
+	overflow: hidden;
+}
+.view-details img {
+	float: right;
+	margin: -0.5em -0.5em -0.5em 0;
+}
+.view-details .type {
+	font-size: 1.5em;
+	color: #fff;
+}
+.view-details .meta {
+	font-size: 0.75em;
+	color: #ddd;
+}
