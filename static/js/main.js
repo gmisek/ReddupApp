@@ -40,18 +40,18 @@ function Controller($scope) {
 		);
 	}
 
-	$scope.addMarker = function() {
-		
+	$scope.addMarker = function(latLng) {
+		$scope.markers.push(new google.maps.Marker({
+			map: $scope.map,
+			position: latLng
+		}));
 	}
 
 	$scope.addIssue = function(event) {
 		//TODO: push to server
 		$http()
 		.success();
-		$scope.markers.push(new google.maps.Marker({
-			map: $scope.map,
-			position: $event.latLng
-		}));
+		
 	}
 
 	$scope.addAllMarkers = function	() {
