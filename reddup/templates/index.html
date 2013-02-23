@@ -16,6 +16,9 @@
 		<div class="name-row">Steel City <span style="color: #cfac0b;">Redd Up</span></div>
 		<div class="" id="map_canvas" ui-map="map" ui-event="{'map-click': 'tempMarker($event)'}" ui-options="mapOptions" >
 		</div>
+		<div ng-repeat="issue in issues" ui-map-marker="issues[$index]"
+		  ui-event="{'map-click': 'openDetails(issue)'}">
+		</div>
 		<div class="btn-row" ng-show="mode.select">
 			<div class="big-btn full" ng-click="setMode('identify')">Identify</div>
 		</div>
@@ -44,10 +47,10 @@
 				<div class="submit-btn" ng-click="addIssue()">Save issue</div>
 			</div>
 		</div>
-		<div class="view-details" ng-show="activePoint">
-			<div class="close" ng-click="setMode('select')">&times;</div>
+		<div class="view-details" ng-show="activeIssue">
+			<div class="close" ng-click="activeIssue = ''; setMode('select')">&times;</div>
 			<img src="http://placehold.it/150x100" ng-show="activePoint.image" />
-			<div class="type">{{ activePoint.type }}</div>
+			<div class="type">{{ activeIssue.type }}</div>
 			<div class="meta">{{ activePoint.createdBy }} - {{ activePoint.dateCreated }}</div>
 		</div>
 		<div class="user-bar">
