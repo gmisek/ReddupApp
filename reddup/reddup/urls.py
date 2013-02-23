@@ -17,5 +17,6 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 
     url(r'^$', 'scru.views.index', name='index'),
+    url(r'^issue/new', 'scru.views.create_issue', name='create_issue'),
    # url(r'/^$',)
 )
