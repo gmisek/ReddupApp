@@ -31,6 +31,7 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
 	$scope.issues = [];
 	$scope.activeIssue = null;
 	$scope.newIssue = {};
+	$scope.willing = Math.floor(Math.random() * 5);
 	$scope.mapOptions = {
 		center: new google.maps.LatLng(40.4406, -79.9961),
 		zoom: 14,

@@ -97,6 +97,7 @@
 				<input ng-model="beforeImg" type="file" value="Add Image" />
 				<div class="submit-btn" ng-click="openIssue()">Save issue</div>
 				-->
+				<div class="willing"><span>3</span> users have pledged to Redd Up this area</div>
                 <form enctype="multipart/form-data" action="issue/open/" method="POST">
                     <div class="wrap-select"><select name="category" id="category">
                         <option>What kind of problem are you reporting?</option>
@@ -108,7 +109,7 @@
                     <input type="hidden" name="longitude" id="longitude" ng-model="newIssue.longitude" value="{[{ newIssue.longitude }]}" />
                     <input type="hidden" name="location_type_id" id="location_type_id" value="1" />
                     <input name="beforeImg" id="beforeImg" type="file" value="Add Image" />
-                    <input type="submit" value="Submit" />
+                    <input class="submit-btn" type="submit" value="Submit this issue" />
                 </form>
 			</div>
 		</div>
