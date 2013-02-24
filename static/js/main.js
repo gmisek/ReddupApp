@@ -21,7 +21,8 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
 		identify: false,
 		details: false,
 		claim: false,
-		solve: false
+		solve: false,
+		pledge: false
 	};
 	$scope.issues = [];
 	$scope.activeIssue = null;
@@ -38,7 +39,8 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
 			identify: false,
 			details: false,
 			claim: false,
-			solve: false
+			solve: false,
+			pledge: false
 		};
 		$scope.mode[mode] = true;
 	};
@@ -63,6 +65,7 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
 	};
 
 	$scope.addIssue = function() {
+		$scope.loading = true;
 		$http({
 			url: "/issue/open/",
 		    method: "POST",
@@ -77,16 +80,16 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
 		    	"latitude" : $scope.newIssue.latitude+''
 		    }
 		}).success(function(data, status, headers, config) {
+			$scope.loading = false;
     		$scope.refreshMarkers();
     		$scope.setMode('select');
     	}).error(function(data, status, headers, config) {
-    		//
+    		$scope.loading = false;
     	});
 	};
 
 	$scope.cancelNewIssue = function () {
 		$scope.setMode('select');
-		$scope.issues.pop();
 		$scope.newIssue.marker.setMap(null);
 		$scope.newIssue = {};
 	};
@@ -99,6 +102,9 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
 	};
 
 	$scope.tempMarker = function ($event) {
+		if ($scope.newIssue != null) {
+			////////////////////////////////////////////
+		}
 		$scope.newIssue = {};
 		$scope.newIssue.marker = new google.maps.Marker({
 			map: $scope.map,
@@ -111,8 +117,24 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
 		$scope.setMode('details');
 	};
 
-	$scope.removeMarker = function (index) {
-		$scope.issues.splice(index, 1);
+	$scope.resolveIssue = function (issue) {
+		$scope.loading = true;
+		$http({
+			url: "/issue/open/",
+		    method: "POST",
+		    data: {
+		    	"issue_id" : issue.id,
+		    	"after_img" : issue.afterImg,
+		    	"closer_id" : issue.closer.id,
+		    	"cleaner_id" : issue.cleaner.id
+		    }
+		}).success(function(data, status, headers, config) {
+			$scope.loading = false;
+    		$scope.setMode('pledge')
+    		$scope.fetchPoints();
+    	}).error(function(data, status, headers, config) {
+    		$scope.loading = false;
+    	});
 	};
 
 	$scope.clearMarkers = function () {
@@ -147,7 +169,7 @@ var sampleIssues = [
 		dateClosed		: 'new Date("Sun Feb 24 2013 12:48:20 GMT-0500 (EST)")', 
 		opener			: { id: 2, username: "jim", deleted: false },
 		closer			: null,
-		cleanerId		: { id: 3, username: "nate", deleted: false },
+		cleaner  		: { id: 3, username: "nate", deleted: false },
 		category		: { id: 5, name: "Graffiti", appKey: "GRAFFITI" },
 		locationType	: { id: 5, name: "Street", appKey: "STREET" },
 		reportedTo311	: true
@@ -163,7 +185,7 @@ var sampleIssues = [
 		dateClosed		: 'new Date("Sun Feb 24 2013 09:21:20 GMT-0500 (EST)")', 
 		opener			: { id: 3, username: "geoff", deleted: false },
 		closer			: null,
-		cleanerId		: { id: 4, username: "ben", deleted: false },
+		cleaner 		: { id: 4, username: "ben", deleted: false },
 		category		: { id: 1, name: "Pothole", appKey: "POTHOLE" },
 		locationType	: { id: 5, name: "Street", appKey: "STREET" },
 		reportedTo311	: true
@@ -179,7 +201,7 @@ var sampleIssues = [
 		dateClosed		: 'new Date("Sun Feb 24 2013 10:21:20 GMT-0500 (EST)")', 
 		opener			: { id: 5, username: "shawn", deleted: false },
 		closer			: null,
-		cleanerId		: { id: 6, username: "david", deleted: false },
+		cleaner 		: { id: 6, username: "david", deleted: false },
 		category		: { id: 1, name: "Pothole", appKey: "POTHOLE" },
 		locationType	: { id: 5, name: "Street", appKey: "STREET" },
 		reportedTo311	: true
