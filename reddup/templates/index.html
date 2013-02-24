@@ -82,7 +82,7 @@
 		</div>
 		<div class="view-details" ng-show="activeIssue.id">
 			<div class="close" ng-click="activeIssue = ''; setMode('select')">&times;</div>
-			<img src="{[{ activeIssue.before_img }]}" ng-show="activeIssue.image" />
+			<img src="{[{ activeIssue.before_img }]}" ng-show="activeIssue.before_img" />
 			<div class="type">{[{ activeIssue.category }]}</div>
 			<p>{[{ activeIssue.description }]}</p>
 			<div class="meta">{[{ activeIssue.opener }]} - {[{ activeIssue.date_opened | date:'medium' }]}</div>
