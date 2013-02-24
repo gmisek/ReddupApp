@@ -28,11 +28,16 @@
 			<div class="big-btn" ng-click="tempMarker()">Use my location</div>
 			<div class="msg">or tap the map {{ mode.identify }}</div>
 		</div>
-		<div class="success" ng-show="true">
+		<div class="success" ng-show="successOpen">
 
-			<div ng-click="closeSuccess()">Close</div>
+			<div ng-click="closeMsg()">Close</div>
 		</div>
-		<div class="success"></div>
+		<div class="success" ng-show="successClose">
+
+			<input type="checkbox" />Alert me to new problems I can fix in the future
+			<div ng-click="closeIssue(activeIssue)">Close this issue</div>
+			<div ng-click="closeMsg()" ng-show="closeHasSucceeded">Thanks! Return to home</div>
+		</div>
 		<!-- Show after clicking 'Claim' -->
 		<div class="list" ng-show="mode.list">
 			<ul>
@@ -42,7 +47,11 @@
 			</ul>
 		</div>
 		<div class="list" ng-show="mode.userList">
-			These are the user's 
+			<ul>
+				<li ng-repeat="issue in issues">
+					{[{issue.category.name}]}
+				</li>
+			</ul>
 		</div>
 		<!-- Show after choosing location -->
 		<div class="add-details" ng-show="mode.details">
@@ -65,7 +74,7 @@
 			<div class="meta">{[{ activeIssue.opener.username }]} - {[{ activeIssue.dateOpened | date:'medium' }]}</div>
 			<div class="btn" ng-click="claimIssue(activeIssue.id)">Claim</div>
 			<div class="btn" ng-click="reUpIssue(activeIssue.id)">ReUp</div>
-			<div class="btn" ng-click="closeIssue(activeIssue)">Close</div>
+			<div class="btn" ng-click="successClose = true">It's been fixed</div>
 		</div>
 		<div class=""
 		<div class="user-bar">
