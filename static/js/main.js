@@ -103,8 +103,8 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
 	};
 
 	$scope.tempMarker = function ($event) {
-		if ($scope.newIssue != null) {
-			////////////////////////////////////////////
+		if ($scope.newIssue.marker != null || $scope.newIssue.marker != undefined) {
+			$scope.newIssue.marker.setMap(null);
 		}
 		$scope.newIssue = {};
 		$scope.newIssue.marker = new google.maps.Marker({
