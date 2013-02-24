@@ -57,6 +57,7 @@
 		<div class="add-details" ng-show="mode.details">
 			<div class="close" ng-click="cancelNewIssue()">&times;</div>
 			<div class="content">
+                <!--
 				<select ng-model="newIssue.category">
 					<option>What kind of problem are you reporting?</option>
 					<option value="1">Garbage</option>
@@ -65,6 +66,20 @@
 				<textarea ng-model="newIssue.description" placeholder="Add a description"></textarea>
 				<input ng-model="beforeImg" type="file" value="Add Image" />
 				<div class="submit-btn" ng-click="openIssue()">Save issue</div>
+				-->
+                <form enctype="multipart/form-data" action="issue/open/" method="POST">
+                    <select name="category" id="category">
+                        <option>What kind of problem are you reporting?</option>
+                        <option value="1">Garbage</option>
+                        <option value="1">Pothole</option>
+                    </select>
+                    <textarea name="description" placeholder="Add a description"></textarea>
+                    <input type="hidden" name="latitude" id="latitude" ng-model="newIssue.latitude" value="{[{ newIssue.latitude }]}"/>
+                    <input type="hidden" name="longitude" id="longitude" ng-model="newIssue.longitude" value="{[{ newIssue.longitude }]}" />
+                    <input type="hidden" name="location_type_id" id="location_type_id" value="1" />
+                    <input name="beforeImg" id="beforeImg" type="file" value="Add Image" />
+                    <input type="submit" value="Submit" />
+                </form>
 			</div>
 		</div>
 		<div class="view-details" ng-show="activeIssue.id">
