@@ -261,6 +261,21 @@ select, textarea {
 	width: 100%;
 	margin: 0 0 0.25em 0;
 }
+.wrap-select {
+	position: relative;
+}
+.wrap-select:after {
+	content: '';
+	height: 0;
+	position: absolute;
+	right: 10px;
+	top: 10px;
+	width: 0;
+	border-top: 9px solid #ddd;
+	border-left: 9px solid transparent;
+	border-right: 9px solid transparent;
+	border-bottom: 0;
+}
 textarea {
 	resize: none;
 	height: 50px;
