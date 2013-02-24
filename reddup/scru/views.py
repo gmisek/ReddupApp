@@ -44,7 +44,11 @@ def open_issue(request):
     if request.method == 'POST':
         status = 'open'
 
-        before_img = request.FILES['beforeImg']
+        before_img = None
+        try:
+            before_img = request.FILES['beforeImg']
+        except:
+            print 'no image'
 
         user = User.objects.get(pk=1)#request.POST.get('user_id'))
         category = Category.objects.get(pk=1) #data['category_id']
@@ -65,7 +69,7 @@ def open_issue(request):
         report = IssueUser(issue=issue, user=user)
         report.save()
 
-        return HttpResponse(json.dumps({'success': True}), content_type='application/json')
+        return render_to_response('issue_open_success.html', {}, RequestContext(request))
     else:
         return HttpResponse(json.dumps({'success': False}), content_type='application/json')
 
@@ -86,10 +90,10 @@ def close_issue(request):
 
 
 @csrf_exempt
-def reup_issue(request):
+def reup_issue(request, issue_id):
     if request.method == 'POST':
         data = simplejson.loads(request.raw_post_data)
-        issue = Issue.objects.get(pk=data['issue_id'])
+        issue = Issue.objects.get(pk=issue_id)
         user = User.objects.get(pk=data['user_id'])
 
         report = IssueUser(issue=issue, user=user)
@@ -115,12 +119,11 @@ def create_pledge(request):
         return HttpResponse(json.dumps({'success': False}), content_type='application/json')
 
 @csrf_exempt
-def claim_issue(request):
+def claim_issue(request, issue_id):
     if request.method == 'POST':
         data = simplejson.loads(request.raw_post_data)
         user = User.objects.get(pk=data['user_id'])
-        issue = Issue.objects.get(pk=data['issue_id'])
-
+        issue = Issue.objects.get(pk=issue_id)
         claim = Claim(user=user, issue=issue)
         claim.save()
         return HttpResponse(json.dumps({'success': True}), content_type='application/json')
