@@ -23,9 +23,10 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
 		select: true,
 		identify: false,
 		details: false,
-		claim: false,
 		solve: false,
-		pledge: false
+		pledge: false,
+		userList: false,
+		list: false
 	};
 	$scope.issues = [];
 	$scope.activeIssue = null;
@@ -41,9 +42,10 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
 			select: false,
 			identify: false,
 			details: false,
-			claim: false,
 			solve: false,
-			pledge: false
+			pledge: false,
+			userList: false,
+			list: false
 		};
 		$scope.mode[mode] = true;
 	};
@@ -142,10 +144,10 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
 		}
 	};
 
-	$scope.resolveIssue = function (issue) {
+	$scope.closeIssue = function (issue) {
 		$scope.loading = true;
 		$http({
-			url: "/issue/open/",
+			url: "/issue/" + issue.id + "close/",
 		    method: "POST",
 		    data: {
 		    	"issue_id" : issue.id,
@@ -178,6 +180,24 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
 		console.log(issue);
 		$scope.activeIssue = issue;
 	};
+
+	$scope.claimIssue = function(issueId) {
+		$scope.loading = true;
+		$http({
+			url: "/issue/" + issueId + "/claim/",
+		    method: "POST",
+		    data: {
+		    	"user_id" : 1,
+		    	"issue_id" : issueId
+		    }
+		}).success(function(data, status, headers, config) {
+			$scope.loading = false;
+    		$scope.setMode('userList')
+    		$scope.fetchPoints();
+    	}).error(function(data, status, headers, config) {
+    		$scope.loading = false;
+    	});
+	}
 
 	setTimeout(function(){
 		$scope.fetchPoints();
