@@ -36,7 +36,7 @@ def all_issues_ajax(request):
         t_issue['lat']=issue.geom.get_x()
         t_issue['lng']=issue.geom.get_y()
         t_issues.append(t_issue)
-    return render_to_response({'issues': SafeString(simplejson.dumps(t_issues))}, RequestContext(request))
+    return HttpResponse(SafeString(simplejson.dumps(t_issues)), mimetype='application/json')
 
 @csrf_exempt
 def open_issue(request):
