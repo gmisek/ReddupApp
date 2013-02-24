@@ -85,17 +85,24 @@ def open_issue(request):
 @csrf_exempt
 def close_issue(request):
     if request.method == 'POST':
-        data = simplejson.loads(request.raw_post_data)
+        after_img = None
+        try:
+            after_img = request.FILES['afterImg']
+        except:
+            print 'no image'
+
+        print request.POST.get('issue_id')
+
         status = 'closed'
-        issue = Issue.objects.get(pk=data['issue_id'])
-        issue.after_img = data['after_img']
+        issue = Issue.objects.get(pk=request.POST.get('issue_id'))
+        issue.after_img = after_img
         issue.status = status
-        issue.closer = User.objects.get(pk=data['closer_id'])
-        issue.cleaner = User.objects.get(pk=data['cleaner_id'])
+        issue.closer = User.objects.get(pk=1)#request.POST.get('closer_id'))
+        issue.cleaner = User.objects.get(pk=1)#request.POST.get('cleaner_id'))
         issue.save()
-        return HttpResponse(json.dumps({'success': True}), content_type='application/json')
-    else:
-        return HttpResponse(json.dumps({'success': False}), content_type='application/json')
+
+        return HttpResponseRedirect('/')
+
 
 
 @csrf_exempt
