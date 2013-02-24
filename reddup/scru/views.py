@@ -101,7 +101,7 @@ def close_issue(request):
         issue.cleaner = User.objects.get(pk=1)#request.POST.get('cleaner_id'))
         issue.save()
 
-        return render_to_response('issue_fixed_success.html', {'issue': SafeString(issue)}, RequestContext(request))
+        return render_to_response('issue_fixed_success.html', {'issue': issue}, RequestContext(request))
 
 
 
