@@ -20,7 +20,7 @@
 		<div ng-repeat="issue in issues" ui-map-marker="issues[$index].marker"
 		  ui-event="{'map-click': 'openDetails(issue)'}">
 		</div>
-		<div class="btn-row" ng-show="mode.select">
+		<div class="btn-row" ng-show="mode.select" ng-hide="activeIssue">
 			<div class="big-btn full" ng-click="setMode('identify')">Report a problem</div>
 		</div>
 		<!-- Show after clicking 'Identify' -->
@@ -91,8 +91,8 @@
 			<div class="btn" ng-click="reUpIssue(activeIssue.id)">ReUp</div>
 			<div class="btn" ng-click="successClose = true">It's been fixed</div>
 		</div>
-		<div ng-click="setMode('userList')">View list</div>
-		<div class="user-bar">
+		<div ng-click="setMode('userList')" class="userbar">username - View issues I've created or claimed</div>
+		<div class="user-bar" ng-show="false">
 			<span ng-show="!user">Log in to save your contributions</span>
 			<div ng-show="user">
 				<div class="username">username</div>
