@@ -127,6 +127,11 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
 		});
 	};
 
+	$scope.openDetails = function(issue) {
+		console.log(issue);
+		$scope.activeIssue = issue;
+	};
+
 	setTimeout(function(){ $scope.fetchPoints(); }, 1000);
 }]);
 

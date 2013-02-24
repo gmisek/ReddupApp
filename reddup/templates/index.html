@@ -16,7 +16,7 @@
 		<div class="name-row">Steel City <span style="color: #cfac0b;">Redd Up</span></div>
 		<div class="" id="map_canvas" ui-map="map" ui-event="{'map-click': 'tempMarker($event)'}" ui-options="mapOptions" >
 		</div>
-		<div ng-repeat="issue in issues" ui-map-marker="issues[$index]"
+		<div ng-repeat="issue in issues" ui-map-marker="issues[$index].marker"
 		  ui-event="{'map-click': 'openDetails(issue)'}">
 		</div>
 		<div class="btn-row" ng-show="mode.select">
