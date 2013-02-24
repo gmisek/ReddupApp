@@ -28,11 +28,20 @@
 			<div class="big-btn" ng-click="tempMarker()">Use my location</div>
 			<div class="msg">or tap the map {{ mode.identify }}</div>
 		</div>
-		<!-- Show after clicking 'Claim' -->
-		<div class="" ng-show="mode.claim">
+		<div class="success" ng-show="true">
+
+			<div ng-click="closeSuccess()">Close</div>
 		</div>
-		<!-- Show after solving a claim -->
-		<div class="" ng-show="mode == ''">
+		<!-- Show after clicking 'Claim' -->
+		<div class="list" ng-show="mode.list">
+			<ul>
+				<li ng-repeat="issue in issues">
+					{[{issue.category.name}]}
+				</li>
+			</ul>
+		</div>
+		<div class="list" ng-show="mode.userList">
+			These are the user's 
 		</div>
 		<!-- Show after choosing location -->
 		<div class="add-details" ng-show="mode.details">
@@ -53,6 +62,9 @@
 			<img src="http://placehold.it/150x100" ng-show="activeIssue.image" />
 			<div class="type">{[{ activeIssue.category.name }]}</div>
 			<div class="meta">{[{ activeIssue.opener.username }]} - {[{ activeIssue.dateOpened | date:'medium' }]}</div>
+			<div class="btn" ng-click="claimIssue(activeIssue.id)">Claim</div>
+			<div class="btn" ng-click="reUp(activeIssue.id)">ReUp</div>
+			<div class="btn" ng-click="closeIssue(activeIssue)">Close</div>
 		</div>
 		<div class=""
 		<div class="user-bar">
