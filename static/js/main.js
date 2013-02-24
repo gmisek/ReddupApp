@@ -67,7 +67,7 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
 		// );
 	};
 
-	$scope.addIssue = function() {
+	$scope.openIssue = function() {
 		$scope.loading = true;
 		$http({
 			url: "/issue/open/",
@@ -193,6 +193,24 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
 		}).success(function(data, status, headers, config) {
 			$scope.loading = false;
     		$scope.setMode('userList')
+    		$scope.fetchPoints();
+    	}).error(function(data, status, headers, config) {
+    		$scope.loading = false;
+    	});
+	}
+
+	$scope.reUpIssue = function(issueId) {
+		$scope.loading = true;
+		$http({
+			url: "/issue/" + issueId + "/reup/",
+		    method: "POST",
+		    data: {
+		    	"user_id" : 1,
+		    	"issue_id" : issueId
+		    }
+		}).success(function(data, status, headers, config) {
+			$scope.loading = false;
+    		$scope.setMode('select')
     		$scope.fetchPoints();
     	}).error(function(data, status, headers, config) {
     		$scope.loading = false;
