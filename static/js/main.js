@@ -52,7 +52,15 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
 
 	$scope.fetchPoints = function() {
 		$scope.clearMarkers();
-		$scope.issues = sampleIssues;
+		
+		//$scope.issues = sampleIssues;
+		$http(
+			type: 'GET',
+			url: '/issues/all/ajax/'
+		).success(function (data) {
+			$scope.issues = data;
+		});
+
 		$.each($scope.issues, function (index, issue){
 			issue.marker = $scope.newMarker(issue.lat, issue.lng);
 		});
