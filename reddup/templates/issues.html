@@ -11,7 +11,23 @@
 	<link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:300' rel='stylesheet' type='text/css'>
 </head>
 <body>
-	
+
+    <table>
+        <thead>
+            <td>Category</td>
+            <td>Description</td>
+            <td>Date Opened</td>
+            <td>Countdown</td>
+        </thead>
+        {% for i in issues %}
+        <tr>
+            <td>{{ i.category }} </td>
+            <td>{{ i.description }}</td>
+            <td>{{ i.date_opened }}</td>
+            <td>countdown here</td>
+        </tr>
+        {% endfor %}
+    </table>
 
 	<a href="index.html">Return to the map</a>
 </body>

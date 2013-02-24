@@ -16,6 +16,14 @@ def index(request):
     issues = geoj.encode(djf.decode(Issue.objects.all()))
     return render_to_response('index.html', {'issues': SafeString(issues)}, RequestContext(request))
 
+def user_issues(request, user_id):
+    user = User.objects.get(pk=user_id)
+    claims = Claim.objects.filter(user=user_id)
+    issues = [Issue.objects.get(pk=g.issue.id) for g in claims]
+
+    return render_to_response('issues.html', {'issues': SafeString(issues)}, RequestContext(request))
+
+
 @csrf_exempt
 def all_issues(request):
     geoj = GeoJSON.GeoJSON()
@@ -32,7 +40,7 @@ def all_issues_ajax(request):
         t_issue ={}
         #t_issue= dict((x.name, getattr(issue, x.name)) for x in issue._meta.fields)
         for field in issue._meta.fields:
-            if field.name != 'geom' and field.name != 'after_img' and field.name !='before_img':
+            if field.name != 'geom': # and field.name != 'after_img' and field.name !='before_img':
                 t_issue[field.name]=str(getattr(issue, field.name))
         t_issue['lng']=issue.geom.get_x()
         t_issue['lat']=issue.geom.get_y()
