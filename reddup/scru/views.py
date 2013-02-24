@@ -16,10 +16,15 @@ def index(request):
     issues = geoj.encode(djf.decode(Issue.objects.all()))
     return render_to_response('index.html', {'issues': SafeString(issues)}, RequestContext(request))
 
+
 def user_issues(request, user_id):
     user = User.objects.get(pk=user_id)
     claims = Claim.objects.filter(user=user_id)
     issues = [Issue.objects.get(pk=g.issue.id) for g in claims]
+
+    print user
+    print claims
+    print issues
 
     return render_to_response('issues.html', {'issues': SafeString(issues)}, RequestContext(request))
 
