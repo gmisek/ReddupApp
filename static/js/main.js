@@ -32,7 +32,7 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
 	$scope.newIssue = {};
 	$scope.mapOptions = {
 		center: new google.maps.LatLng(40.4406, -79.9961),
-		zoom: 12,
+		zoom: 14,
 		mapTypeId: google.maps.MapTypeId.ROADMAP
 	};
 
@@ -158,8 +158,7 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
 	setTimeout(function(){
 		$scope.fetchPoints();
 		navigator.geolocation.getCurrentPosition(function(position) {
-			$scope.mapOptions.center = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
-			$scope.
+			$scope.map.panTo(new google.maps.LatLng(position.coords.latitude,position.coords.longitude));
 		});
 	}, 1000);
 }]);
