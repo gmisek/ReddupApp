@@ -70,7 +70,7 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
 			url: "/issue/open/",
 		    method: "POST",
 		    data: {
-		    	"opener_id" : 1,
+		    	"user_id" : 1,
 		    	"description" : $scope.newIssue.description,
 		    	"before_img" : $scope.newIssue.image,
 		    	"category_id" : $scope.newIssue.category,
