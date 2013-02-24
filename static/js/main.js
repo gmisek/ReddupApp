@@ -91,6 +91,10 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
     	});
 	};
 
+	$scope.closeMsg = function () {
+		$scope.setMode('select');
+	};
+
 	$scope.cancelNewIssue = function () {
 		$scope.setMode('select');
 		$scope.newIssue.marker.setMap(null);
@@ -147,7 +151,7 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
 	$scope.closeIssue = function (issue) {
 		$scope.loading = true;
 		$http({
-			url: "/issue/" + issue.id + "close/",
+			url: "/issue/" + issue.id + "/close/",
 		    method: "POST",
 		    data: {
 		    	"issue_id" : issue.id,
@@ -157,7 +161,20 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
 		    }
 		}).success(function(data, status, headers, config) {
 			$scope.loading = false;
-    		$scope.setMode('pledge')
+    		$scope.closeHasSucceeded = true;
+
+    		if ($scope.alertMe) {
+    			$http({
+					url: "/pledge/new/",
+				    method: "POST",
+				    data: {
+				    	"user_id" : 1,
+				    	"latitude" : 40.460271,
+				    	"longitude" : -79.916954
+				    }
+				});
+    		}
+
     		$scope.fetchPoints();
     	}).error(function(data, status, headers, config) {
     		$scope.loading = false;
@@ -197,7 +214,7 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
     	}).error(function(data, status, headers, config) {
     		$scope.loading = false;
     	});
-	}
+	};
 
 	$scope.reUpIssue = function(issueId) {
 		$scope.loading = true;
@@ -215,7 +232,7 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
     	}).error(function(data, status, headers, config) {
     		$scope.loading = false;
     	});
-	}
+	};
 
 	setTimeout(function(){
 		$scope.fetchPoints();
