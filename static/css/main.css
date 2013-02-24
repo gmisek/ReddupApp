@@ -104,6 +104,18 @@ body {
 	cursor: pointer;
 }
 
+.success {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	background: #76b981;
+	text-align: center;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
 select, textarea {
 	background: #444;
 	border: 0;
