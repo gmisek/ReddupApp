@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Steel City Reddup - Issue Fixed</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" href="{{ STATIC_URL }}css/normalize.css" />
+	<link rel="stylesheet" href="{{ STATIC_URL }}css/main.css" />
+
+	<link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:300' rel='stylesheet' type='text/css'>
+</head>
+<body>
+	<h2>Thanks!</h2>
+	<h3>You've helped redd up Pittsburgh!</h3>
+
+	<div>
+		<div style="float:aleft;">
+			<img src="{{ STATIC_URL }}/{{ issue.before_img }}" />
+		</div>
+		<div style="float:left;">
+			<img src="{{ STATIC_URL }}/{{ issue.after_img }}" />
+		</div>
+	</div>
+
+	<div style="clear:both;"></div>
+
+	<div>
+		<img src="facebook.png" />
+		<img src="twitter.png" />
+		<img src="tumblr.png" />
+	</div>
+
+	<a href="index.html">Return to the map</a>
+</body>
+</html>
