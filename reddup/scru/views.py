@@ -23,6 +23,21 @@ def all_issues(request):
     print issues
     return render_to_response('mapview.html', {'issues': SafeString(issues)}, RequestContext(request))
 
+
+def all_issues_ajax(request):
+    issues= Issue.objects.filter(status='open')
+    t_issues =[]
+    for issue in issues:
+        t_issue ={}
+        #t_issue= dict((x.name, getattr(issue, x.name)) for x in issue._meta.fields)
+        for field in issue._meta.fields:
+            if field.name != 'geom' and field.name != 'after_img' and field.name !='before_img':
+                t_issue[field.name]=str(getattr(issue, field.name))
+        t_issue['lat']=issue.geom.get_x()
+        t_issue['lng']=issue.geom.get_y()
+        t_issues.append(t_issue)
+    return render_to_response('mapview.html', {'issues': SafeString(simplejson.dumps(t_issues))}, RequestContext(request))
+
 @csrf_exempt
 def open_issue(request):
     if request.method == 'POST':
