@@ -33,8 +33,8 @@ def all_issues_ajax(request):
         for field in issue._meta.fields:
             if field.name != 'geom' and field.name != 'after_img' and field.name !='before_img':
                 t_issue[field.name]=str(getattr(issue, field.name))
-        t_issue['lat']=issue.geom.get_x()
-        t_issue['lng']=issue.geom.get_y()
+        t_issue['lng']=issue.geom.get_x()
+        t_issue['lat']=issue.geom.get_y()
         t_issues.append(t_issue)
     return HttpResponse(SafeString(simplejson.dumps(t_issues)), mimetype='application/json')
 
