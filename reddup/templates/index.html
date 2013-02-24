@@ -114,16 +114,26 @@
 		<div class="view-details" ng-show="activeIssue.id">
 			<div class="close" ng-click="activeIssue = ''; setMode('select')">&times;</div>
 			<img src="{[{ activeIssue.before_img }]}" ng-show="activeIssue.before_img" />
-			<div class="">Reported {[{ activeIssue.reported }]} times</div>
+			<div class="reported">Reported {[{ activeIssue.reported }]} times</div>
 			<div class="type">{[{ activeIssue.category }]}</div>
 			<p>{[{ activeIssue.description }]}</p>
 			<div class="meta">Posted by {[{ activeIssue.opener }]} on {[{ activeIssue.date_opened | date:'shortDate' }]}</div>
 			<div class="clear"></div>
-			<div class="btn" ng-click="claimIssue(activeIssue.id)">Claim</div>
-			<div class="btn" ng-click="activeIssue.reported = activeIssue.reported + 1">ReUp</div>
+			<div class="btn" ng-click="claimIssue(activeIssue.id)">I'll fix it</div>
+			<div class="btn" ng-click="activeIssue.reported = activeIssue.reported + 1; activeIssue.reUped = true" class="{reuped: 'activeIssue.reUped'}">
+				<span ng-show="activeIssue.reUped">Thanks!</span>
+				<span ng-hide="activeIssue.reUped">Increase priority</span>
+			</div>
 			<div class="btn" ng-click="successClose = true">It's been fixed</div>
 		</div>
-		<div ng-click="setMode('userList')" class="userbar">username - View issues I've created or claimed</div>
+		<div ng-click="setMode('userList')" class="userbar">
+			<div class="list-icon">
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+			<span>benPaul</span> - View issues I've created or claimed
+		</div>
 		<div class="user-bar" ng-show="false">
 			<span ng-show="!user">Log in to save your contributions</span>
 			<div ng-show="user">
