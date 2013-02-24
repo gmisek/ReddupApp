@@ -11,8 +11,10 @@ import simplejson
 
 
 def index(request):
-    return render_to_response('index.html', {}, RequestContext(request))
-
+    geoj = GeoJSON.GeoJSON()
+    djf = Django.Django(geodjango='geom', properties=['description'])
+    issues = geoj.encode(djf.decode(Issue.objects.all()))
+    return render_to_response('index.html', {'issues': SafeString(issues)}, RequestContext(request))
 
 def all_issues(request):
     geoj = GeoJSON.GeoJSON()
