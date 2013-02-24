@@ -14,7 +14,7 @@
 	
 	<div class="wrap" ng-controller="Controller">
 		<div class="name-row">Steel City <span style="color: #cfac0b;">Redd Up</span></div>
-		<div class="loading" ><div id="spinner"></div></div>
+		<div class="loading" ng-show="loading">Loading</div>
 		<div class="" id="map_canvas" ui-map="map" ui-event="{'map-click': 'tempMarker($event)'}" ui-options="mapOptions" >
 		</div>
 		<div ng-repeat="issue in issues" ui-map-marker="issues[$index].marker"
@@ -25,7 +25,7 @@
 		</div>
 		<!-- Show after clicking 'Identify' -->
 		<div class="btn-row" ng-show="mode.identify">
-			<div class="big-btn" ng-click="setMode('details')">Use my location</div>
+			<div class="big-btn" ng-click="tempMarker()">Use my location</div>
 			<div class="msg">or tap the map {{ mode.identify }}</div>
 		</div>
 		<!-- Show after clicking 'Claim' -->
