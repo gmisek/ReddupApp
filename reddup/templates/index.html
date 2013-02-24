@@ -33,10 +33,16 @@
 			<div ng-click="closeMsg()">Close</div>
 		</div>
 		<div class="success" ng-show="successClose">
+			<form enctype="multipart/form-data" action="issue/open/" method="POST">
+				<input name="afterImg" id="afterImg" type="file" value="Add Image" />
 
-			<input type="checkbox" />Alert me to new problems I can fix in the future
-			<div ng-click="closeIssue(activeIssue)">Close this issue</div>
-			<div ng-click="closeMsg()" ng-show="closeHasSucceeded">Thanks! Return to home</div>
+				<input type="checkbox" />Alert me to new problems I can fix in the future
+				<input type="hidden" name="issue_id" value="{[{activeIssue.id}]}" />
+				<input type="hidden" name="closer_id" value="{[{activeIssue.closer.id}]}" />
+				<input type="hidden" name="cleaner_id" value="{[{activeIssue.cleaner.id}]}" />
+				
+				<input type="submit" value="Submit" />
+			</form>
 		</div>
 		<div class="list" ng-show="mode.userList">
 			<ul>
@@ -76,7 +82,7 @@
 		</div>
 		<div class="view-details" ng-show="activeIssue.id">
 			<div class="close" ng-click="activeIssue = ''; setMode('select')">&times;</div>
-			<img src="http://placehold.it/150x100" ng-show="activeIssue.image" />
+			<img src="{[{ activeIssue.before_img }]}" ng-show="activeIssue.image" />
 			<div class="type">{[{ activeIssue.category }]}</div>
 			<p>{[{ activeIssue.description }]}</p>
 			<div class="meta">{[{ activeIssue.opener }]} - {[{ activeIssue.date_opened | date:'medium' }]}</div>
