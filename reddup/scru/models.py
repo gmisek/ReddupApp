@@ -29,7 +29,7 @@ class Issue(models.Model):
     after_img = models.ImageField(upload_to = "static/after_img/", blank=True, null=True)
     date_opened = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     date_closed = models.DateTimeField(auto_now_add=True, blank=True, null=True)
-    opener = models.ForeignKey(User, related_name='issue_opener')
+    opener = models.ForeignKey(User, related_name='issue_opener', blank=True, null=True, default=None)
     closer = models.ForeignKey(User, related_name='issue_closer', blank=True, null=True, default=None)
     cleaner = models.ForeignKey(User, related_name='issue_cleaner', blank=True, null=True, default=None)
     category = models.ForeignKey(Category)
