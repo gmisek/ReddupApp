@@ -14,7 +14,7 @@
 	
 	<div class="wrap" ng-controller="Controller">
 		<div class="name-row">Steel City <span style="color: #cfac0b;">Redd Up</span></div>
-		<div class="loading" ng-show="loading"></div>
+		<div class="loading" ><div id="spinner"></div></div>
 		<div class="" id="map_canvas" ui-map="map" ui-event="{'map-click': 'tempMarker($event)'}" ui-options="mapOptions" >
 		</div>
 		<div ng-repeat="issue in issues" ui-map-marker="issues[$index].marker"
@@ -68,5 +68,6 @@
 	<script type="text/javascript" src="{{ STATIC_URL }}js/angular-ui.js"></script>
 	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWdiN0-v4BAY7TI9tno96e8VjFMHET1nU&sensor=true"></script>
 	<script type="text/javascript" src="{{ STATIC_URL }}js/main.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}js/spin.min.js"></script>
 </body>
 </html>

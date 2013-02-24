@@ -9,6 +9,9 @@
 		5. solve
 */
 
+$(document).ready(function() {
+	//$('#spinner').spin();
+});
 
 var myApp = angular.module('steelCityReddUp', ['ui'])
 .config(function($interpolateProvider) {
@@ -46,14 +49,12 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
 	};
 
 	$scope.fetchPoints = function() {
-		//$('#spinner').spin();
 		$scope.clearMarkers();
 		$scope.issues = sampleIssues;
 		$.each($scope.issues, function (index, issue){
 			issue.marker = $scope.newMarker(issue.lat, issue.lng);
 		});
 		$scope.refreshMarkers();
-		//$('#spinner').stop();
 
 		// $.getJSON(
 		// 	"url",
@@ -154,7 +155,13 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
 		$scope.activeIssue = issue;
 	};
 
-	setTimeout(function(){ $scope.fetchPoints(); }, 1000);
+	setTimeout(function(){
+		$scope.fetchPoints();
+		navigator.geolocation.getCurrentPosition(function(position) {
+			$scope.mapOptions.center = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+			$scope.
+		});
+	}, 1000);
 }]);
 
 var sampleIssues = [
