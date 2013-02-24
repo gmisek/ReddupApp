@@ -33,21 +33,52 @@
 			<div ng-click="closeMsg()">Close</div>
 		</div>
 		<div class="success" ng-show="successClose">
+			<h4>Great! We're happy it's fixed.</h4>
 			<form enctype="multipart/form-data" action="issue/close/" method="POST">
+				<label>Share an image of the fixed issue</label>
 				<input name="afterImg" id="afterImg" type="file" value="Add Image" />
 
-				<input type="checkbox" />Alert me to new problems I can fix in the future
+				<input type="checkbox" /> Alert me when there are similar problems in this area in the future
+
 				<input type="hidden" name="issue_id" value="{[{activeIssue.id}]}" />
 				<input type="hidden" name="closer_id" value="{[{activeIssue.closer.id}]}" />
 				<input type="hidden" name="cleaner_id" value="{[{activeIssue.cleaner.id}]}" />
 				
-				<input type="submit" value="Submit" />
+				<input type="submit" class="submit-btn" value="Submit and close this issue" />
 			</form>
 		</div>
 		<div class="list" ng-show="mode.userList">
+			<div class="close" ng-click="setMode('select')">&times;</div>
+			<h4>Issues I've claimed</h4>
+			<ul>
+				<li ng-repeat="issue in issues" ng-show="issue.opener == 'nate' || issue.cleaner == 'nate'">
+					<span class="fixed" ng-click="setMode('select'); $parent.activeIssue = issue; $parent.successClose = true">I fixed it!</span>
+					<span class="dot"></span>
+					<span class="cat" ng-click="openDetails(issue)">{[{issue.category}]} - {[{issue.description}]}</span>
+					<span class="meta">7 days remain to fix this issue</span>
+				</li>
+				<li class="closed">
+					<span class="dot gray"></span>
+					<span class="cat">Garbage - Bunch of trash in lot near TJs</span>
+					<span class="meta">Jan 17, 2013</span>
+				</li>
+				<li class="closed">
+					<span class="dot gray"></span>
+					<span class="cat">Garbage - Stuff lying around here on Penn Ave.</span>
+					<span class="meta">Jan 12, 2013</span>
+				</li>
+			</ul>
+			<h4>Issues I've opened</h4>
 			<ul>
 				<li ng-repeat="issue in issues" ng-show="issue.opener == 'nate' || issue.cleaner == 'nate'" ng-click="openDetails(issue)">
-					{[{issue.category}]}
+					<span class="dot green"></span>
+					<span class="cat">{[{issue.category}]} - {[{issue.description}]}</span>
+					<span class="meta">Opened today</span>
+				</li>
+				<li class="closed">
+					<span class="dot gray"></span>
+					<span class="cat">Broken Curb - Huge chunk of curb has fallen away.</span>
+					<span class="meta">Jan 10, 2013, closed by pghCityWorker23</span>
 				</li>
 			</ul>
 		</div>
@@ -85,7 +116,7 @@
 			<img src="{[{ activeIssue.before_img }]}" ng-show="activeIssue.before_img" />
 			<div class="type">{[{ activeIssue.category }]}</div>
 			<p>{[{ activeIssue.description }]}</p>
-			<div class="meta">{[{ activeIssue.opener }]} - {[{ activeIssue.date_opened | date:'medium' }]}</div>
+			<div class="meta">Posted by {[{ activeIssue.opener }]} - Posted: {[{ activeIssue.date_opened | date:'shortDate' }]}</div>
 			<div class="clear"></div>
 			<div class="btn" ng-click="claimIssue(activeIssue.id)">Claim</div>
 			<div class="btn" ng-click="reUpIssue(activeIssue.id)">ReUp</div>

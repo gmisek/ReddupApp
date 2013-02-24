@@ -141,11 +141,10 @@ body {
 .success,
 .list {
 	position: absolute;
-	height: 100%;
 	width: 100%;
 	background: #76b981;
 	text-align: center;
-	top: 0;
+	top: 1.5em;
 	left: 0;
 	right: 0;
 	bottom: 0;
@@ -154,13 +153,64 @@ body {
 .list {
 	background: #fff;
 }
+.list .close {
+	font-family: Arial, sans-serif;
+	color: #666;
+}
+.list .close:hover,
+.list .close:active,
+.list .close:focus {
+	color: #333;
+}
 .list ul {
 	list-style-type: none;
+	padding: 0;
+	margin: 0 1em;
 }
 .list li {
-	margin: 0;
+	margin: 0 0 0.3em 0;
 	padding: 0.25em;
 	text-align: left;
+	cursor: pointer;
+}
+.list h4 {
+	color: #1e5475;
+	text-align: left;
+	font-size: 1em;
+	border-bottom: 1px dotted #70b5e0;
+	padding: 0.25em 0;
+	margin: 1em;
+}
+.list li .dot {
+	float: left;
+	border-radius: 8px;
+	margin: 0 10px 0 0;
+	background: #1e5475;
+	width: 12px;
+	height: 12px;
+}
+.list li .dot.gray {
+	background: #bbb;
+}
+.list li .dot.green {
+	background: #76b981;
+}
+.list li .cat {
+	display: block;
+	line-height: 0.5em;
+}
+.list li .meta {
+	font-size: 0.75em;
+}
+.list li.closed {
+	color: #999;
+}
+.list .fixed {
+	float: right;
+	background: #76b981;
+	border-radius: 4px;
+	color: #fff;
+	padding: 0.25em;
 }
 
 select, textarea {
@@ -185,10 +235,10 @@ input[type="file"] {
 	-webkit-appearance: none;
 	border: 0;
 	background: #444;
-	color: #fff;
+	color: #444;
 	box-sizing: border-box;
 	width: 100%;
-	padding: 0.25em 0;
+	padding: 0.25em;
 	border-radius: 4px;
 	margin: 0 0 0.25em 0;
 }
@@ -201,4 +251,26 @@ input[type="file"] {
 	width: 100%;
 	padding: 0.5em;
 	box-sizing: border-box;
+}
+
+.success {
+	padding: 2em;
+	box-sizing: border-box;
+}
+.success h4 {
+	font-size: 2em;
+	color: #fff60b;
+	margin: 0 0 1em 0;
+	line-height: 0.5em;
+}
+.success input {
+	margin: 1em 0;
+}
+
+.open-success {
+	background: #34b849;
+	text-align: center;
+}
+.open-success a {
+	color: #fff60b;
 }
