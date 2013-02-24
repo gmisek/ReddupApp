@@ -98,13 +98,11 @@
 				<div class="submit-btn" ng-click="openIssue()">Save issue</div>
 				-->
                 <form enctype="multipart/form-data" action="issue/open/" method="POST">
-                    <select name="category" id="category">
+                    <div class="wrap-select"><select name="category" id="category">
                         <option>What kind of problem are you reporting?</option>
+                        <option value="1">Garbage</option>
                         <option value="1">Pothole</option>
-                        <option value="1">Trash/Litter</option>
-                        <option value="1">Overgrown Lot</option>
-                        <option value="1">Graffiti</option>
-                    </select>
+                    </select></div>
                     <textarea name="description" placeholder="Add a description"></textarea>
                     <input type="hidden" name="latitude" id="latitude" ng-model="newIssue.latitude" value="{[{ newIssue.latitude }]}"/>
                     <input type="hidden" name="longitude" id="longitude" ng-model="newIssue.longitude" value="{[{ newIssue.longitude }]}" />
@@ -123,7 +121,7 @@
 			<div class="meta">Posted by {[{ activeIssue.opener }]} on {[{ activeIssue.date_opened | date:'shortDate' }]}</div>
 			<div class="clear"></div>
 			<div class="btn" ng-click="claimIssue(activeIssue.id)">I'll fix it</div>
-			<div class="btn" ng-click="activeIssue.reported = activeIssue.reported + 1; activeIssue.reUped = true" class="{reuped: 'activeIssue.reUped'}">
+			<div class="btn" ng-click="activeIssue.reported = activeIssue.reported + 1; activeIssue.reUped = true" class="{'reuped': 'activeIssue.reUped'}">
 				<span ng-show="activeIssue.reUped">Thanks!</span>
 				<span ng-hide="activeIssue.reUped">Increase priority</span>
 			</div>
