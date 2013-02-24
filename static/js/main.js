@@ -103,19 +103,43 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
 	};
 
 	$scope.tempMarker = function ($event) {
-		if ($scope.newIssue.marker != null || $scope.newIssue.marker != undefined) {
-			$scope.newIssue.marker.setMap(null);
-		}
-		$scope.newIssue = {};
-		$scope.newIssue.marker = new google.maps.Marker({
-			map: $scope.map,
-			position: $event.latLng
-		});
-		
-		$scope.newIssue.latitude = $event.latLng.hb;
-		$scope.newIssue.longitude = $event.latLng.ib;
+		if ($scope.mode.identify) {
+			if ($event) {
+				if ($scope.newIssue.marker != null || $scope.newIssue.marker != undefined) {
+					$scope.newIssue.marker.setMap(null);
+				}
+				$scope.newIssue = {};
+				$scope.newIssue.marker = new google.maps.Marker({
+					map: $scope.map,
+					position: $event.latLng
+				});
+				
+				$scope.newIssue.latitude = $event.latLng.hb;
+				$scope.newIssue.longitude = $event.latLng.ib;
 
-		$scope.setMode('details');
+				$scope.setMode('details');
+			} else {
+
+				if ($scope.newIssue.marker != null || $scope.newIssue.marker != undefined) {
+					$scope.newIssue.marker.setMap(null);
+				}
+				var yourLat, yourLong;
+				navigator.geolocation.getCurrentPosition(function(position) {
+					yourLat = position.coords.latitude;
+					yourLong = position.coords.longitude;
+				});
+				$scope.newIssue = {};
+				$scope.newIssue.marker = new google.maps.Marker({
+					map: $scope.map,
+					position: new google.maps.LatLng(40.460271, -79.916954)
+				});
+				
+				$scope.newIssue.latitude =  yourLat;
+				$scope.newIssue.longitude = yourLong;
+
+				$scope.setMode('details');
+			}
+		}
 	};
 
 	$scope.resolveIssue = function (issue) {
