@@ -29,29 +29,29 @@ class Issue(models.Model):
     after_img = models.ImageField(upload_to = "static/after_img/", blank=True, null=True)
     date_opened = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     date_closed = models.DateTimeField(auto_now_add=True, blank=True, null=True)
-    opener_id = models.ForeignKey(User, related_name='issue_opener')
-    closer_id = models.ForeignKey(User, related_name='issue_closer', blank=True, null=True, default=None)
-    cleaner_id = models.ForeignKey(User, related_name='issue_cleaner', blank=True, null=True, default=None)
-    category_id = models.ForeignKey(Category)
+    opener = models.ForeignKey(User, related_name='issue_opener')
+    closer = models.ForeignKey(User, related_name='issue_closer', blank=True, null=True, default=None)
+    cleaner = models.ForeignKey(User, related_name='issue_cleaner', blank=True, null=True, default=None)
+    category = models.ForeignKey(Category)
     reported_to_311 = models.NullBooleanField(default=False)
     geom = PointField()
     objects = models.GeoManager()
-    location_type_id = models.ForeignKey(LocationType)
+    location_type = models.ForeignKey(LocationType)
     def __unicode__(self):
         return self.description
 
 class Claim(models.Model):
-    issue_id = models.ForeignKey(Issue)
-    user_id = models.ForeignKey(User)
+    issue = models.ForeignKey(Issue)
+    user = models.ForeignKey(User)
     timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
 class IssueUser(models.Model):
-    issue_id = models.ForeignKey(Issue)
-    user_id = models.ForeignKey(User)
+    issue = models.ForeignKey(Issue)
+    user = models.ForeignKey(User)
     timestamp = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
 class Pledge(models.Model):
-    user_id = models.ForeignKey(User)
+    user = models.ForeignKey(User)
     geom = PointField()
     objects = models.GeoManager()
     radius = models.PositiveIntegerField(default=1, blank=True, null=True)

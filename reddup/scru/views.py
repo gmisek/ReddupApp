@@ -28,22 +28,24 @@ def open_issue(request):
 
         data = simplejson.loads(request.raw_post_data)
 
-        opener_id = User.objects.get(pk=data['opener_id'])
+        user = User.objects.get(pk=data['user_id'])
+        category = Category.objects.get(pk=1) #data['category_id']
+        location_type = LocationType.objects.get(pk=data['location_type_id'])
+
         description = data['description']
         #TODObefore_img = data['before_img']
-        category_id = Category.objects.get(pk=1) #data['category_id']
+
         reported_to_311 = data['reported_to_311']
-        location_type_id = LocationType.objects.get(pk=data['location_type_id'])
         longitude = data['longitude']
         latitude = data['latitude']
 
         pnt = Point(float(longitude), float(latitude))
-        issue = Issue(status=status, opener_id=opener_id, description=description, #before_img=before_img,
-                      category_id=category_id, reported_to_311=reported_to_311, location_type_id=location_type_id,
+        issue = Issue(status=status, opener=user, description=description, #before_img=before_img,
+                      category=category, reported_to_311=reported_to_311, location_type=location_type,
                       geom=pnt)
         issue.save()
 
-        report = IssueUser(issue_id=issue, user_id=opener_id)
+        report = IssueUser(issue=issue, user=user)
         report.save()
 
         return HttpResponse(json.dumps({'success': True}), content_type='application/json')
@@ -54,17 +56,13 @@ def open_issue(request):
 @csrf_exempt
 def close_issue(request):
     if request.method == 'POST':
-        issue_id = request.POST.get('issue_id')
-        after_img = request.POST.get('after_img')
+        data = simplejson.loads(request.raw_post_data)
         status = 'closed'
-        closer_id = request.POST.get('closer_id')
-        cleaner_id = request.POST.get('cleaner_id')
-
-        issue = Issue.objects.get(pk=issue_id)
-        issue.after_img = after_img
+        issue = Issue.objects.get(pk=data['issue_id'])
+        issue.after_img = data['after_img']
         issue.status = status
-        issue.closer_id = closer_id
-        issue.cleaner_id = cleaner_id
+        issue.closer = User.objects.get(pk=data['closer_id'])
+        issue.cleaner = User.objects.get(pk=data['cleaner_id'])
         issue.save()
         return HttpResponse(json.dumps({'success': True}), content_type='application/json')
     else:
@@ -74,10 +72,11 @@ def close_issue(request):
 @csrf_exempt
 def reup_issue(request):
     if request.method == 'POST':
-        issue_id = request.POST.get('issue_id')
-        reporter_id = request.POST.get('reporter_id')
+        data = simplejson.loads(request.raw_post_data)
+        issue = Issue.objects.get(pk=data['issue_id'])
+        user = User.objects.get(pk=data['user_id'])
 
-        report = IssueUser(issue_id=issue_id, reporter_id=reporter_id)
+        report = IssueUser(issue=issue, user=user)
         report.save()
         return HttpResponse(json.dumps({'success': True}), content_type='application/json')
     else:
@@ -87,12 +86,13 @@ def reup_issue(request):
 @csrf_exempt
 def create_pledge(request):
     if request.method == 'POST':
-        user_id = request.POST.get('user_id')
-        longitude = request.POST.get('longitude')
-        latitude = request.POST.get('latitude')
+        data = simplejson.loads(request.raw_post_data)
+        user = User.objects.get(pk=data['user_id'])
+        longitude = data['longitude']
+        latitude = data['latitude']
         pnt = Point(longitude, latitude)
 
-        pledge = Pledge(user_id=user_id, geom=pnt)
+        pledge = Pledge(user=user, geom=pnt)
         pledge.save()
         return HttpResponse(json.dumps({'success': True}), content_type='application/json')
     else:
@@ -101,10 +101,11 @@ def create_pledge(request):
 @csrf_exempt
 def claim_issue(request):
     if request.method == 'POST':
-        user_id = request.POST.get('user_id')
-        issue_id = request.POST.get('issue_id')
+        data = simplejson.loads(request.raw_post_data)
+        user = User.objects.get(pk=data['user_id'])
+        issue = Issue.objects.get(pk=data['issue_id'])
 
-        claim = Claim(user_id=user_id, issue_id=issue_id)
+        claim = Claim(user=user, issue=issue)
         claim.save()
         return HttpResponse(json.dumps({'success': True}), content_type='application/json')
     else:
