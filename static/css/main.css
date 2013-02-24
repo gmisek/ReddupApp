@@ -21,7 +21,22 @@ body {
 	background: #fff;
 	padding: 0.25em;
 	width: 100%;
+	color: #70b5e0;
 	box-sizing: border-box;
+}
+.userbar span {
+	color: #1e5475;
+}
+.list-icon {
+	float: left;
+	margin: 0 5px 0 0;
+}
+.list-icon > div {
+	background: #bbb;
+	height: 5px;
+	width: 18px;
+	border-radius: 1px;
+	margin: 0 0 3px 0;
 }
 
 .btn-row {
@@ -93,6 +108,10 @@ body {
 }
 .view-details .reported {
 	text-transform: uppercase;
+	color: #fff;
+	font-size: 0.7em;
+	line-height: 0.5em;
+	margin: 10px 0 5px 0;
 }
 .view-details .type {
 	font-size: 1.25em;
@@ -116,6 +135,10 @@ body {
 	background: #76b981;
 	color: #2c5e34;
 	box-sizing: border-box;
+}
+.view-details .btn.reuped {
+	background: #eb5b6c;
+	color: #551a21;
 }
 .view-details img {
 	max-width: 15%;

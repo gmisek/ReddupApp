@@ -111,7 +111,7 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
 	};
 
 	$scope.tempMarker = function ($event) {
-		$scope.activeIssue = {};
+		//$scope.activeIssue = {};
 		if ($scope.mode.identify) {
 			if ($event) {
 				if ($scope.newIssue.marker != null || $scope.newIssue.marker != undefined) {
