@@ -62,6 +62,7 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
 			$.each($scope.issues, function (index, issue){
 				issue.marker = $scope.newMarker(issue.lat, issue.lng);
 				issue.date_opened = new Date(issue.date_opened);
+				issue.reported = Math.floor(Math.random() * 5);
 			});
 			$scope.refreshMarkers();
 		});

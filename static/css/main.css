@@ -91,6 +91,9 @@ body {
 .view-details {
 	padding: 0.4em;
 }
+.view-details .reported {
+	text-transform: uppercase;
+}
 .view-details .type {
 	font-size: 1.25em;
 	color: #fff;
@@ -144,7 +147,7 @@ body {
 	width: 100%;
 	background: #76b981;
 	text-align: center;
-	top: 1.5em;
+	top: 3.25em;
 	left: 0;
 	right: 0;
 	bottom: 0;
