@@ -41,15 +41,15 @@
 		<!-- Show after clicking 'Claim' -->
 		<div class="list" ng-show="mode.list">
 			<ul>
-				<li ng-repeat="issue in issues">
-					{[{issue.category.name}]}
+				<li ng-repeat="issue in issues" ng-click="openDetails(issue)">
+					{[{issue.category}]}
 				</li>
 			</ul>
 		</div>
 		<div class="list" ng-show="mode.userList">
 			<ul>
 				<li ng-repeat="issue in issues">
-					{[{issue.category.name}]}
+					{[{issue.category}]}
 				</li>
 			</ul>
 		</div>
@@ -78,7 +78,7 @@
 			<div class="btn" ng-click="reUpIssue(activeIssue.id)">ReUp</div>
 			<div class="btn" ng-click="successClose = true">It's been fixed</div>
 		</div>
-		<div class=""
+		<div ng-click="setMode('list')">View list</div>
 		<div class="user-bar">
 			<span ng-show="!user">Log in to save your contributions</span>
 			<div ng-show="user">

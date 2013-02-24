@@ -124,7 +124,8 @@ body {
 	cursor: pointer;
 }
 
-.success {
+.success,
+.list {
 	position: absolute;
 	height: 100%;
 	width: 100%;
@@ -134,6 +135,17 @@ body {
 	left: 0;
 	right: 0;
 	bottom: 0;
+	z-index: 99;
+}
+.list {
+	background: #fff;
+}
+.list ul {
+	list-style-type: none;
+}
+.list li {
+	margin: 0;
+	padding: 0;
 }
 
 select, textarea {

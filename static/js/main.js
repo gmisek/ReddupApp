@@ -108,6 +108,7 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
 	};
 
 	$scope.tempMarker = function ($event) {
+		$scope.activeIssue = {};
 		if ($scope.mode.identify) {
 			if ($event) {
 				if ($scope.newIssue.marker != null || $scope.newIssue.marker != undefined) {
@@ -195,6 +196,7 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
 	$scope.openDetails = function(issue) {
 		$scope.cancelNewIssue();
 		$scope.activeIssue = issue;
+		$scope.map.panTo(new google.maps.LatLng(issue.lat, issue.lng));
 	};
 
 	$scope.claimIssue = function(issueId) {
