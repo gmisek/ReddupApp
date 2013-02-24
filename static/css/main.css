@@ -104,6 +104,10 @@ body {
 	color: #2c5e34;
 	box-sizing: border-box;
 }
+.view-details img {
+	max-width: 15%;
+	max-height: 25%;
+}
 .clear {
 	float: left;
 	height: 10px;
