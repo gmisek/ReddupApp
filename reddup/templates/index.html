@@ -99,8 +99,10 @@
                 <form enctype="multipart/form-data" action="issue/open/" method="POST">
                     <select name="category" id="category">
                         <option>What kind of problem are you reporting?</option>
-                        <option value="1">Garbage</option>
                         <option value="1">Pothole</option>
+                        <option value="1">Trash/Litter</option>
+                        <option value="1">Overgrown Lot</option>
+                        <option value="1">Graffiti</option>
                     </select>
                     <textarea name="description" placeholder="Add a description"></textarea>
                     <input type="hidden" name="latitude" id="latitude" ng-model="newIssue.latitude" value="{[{ newIssue.latitude }]}"/>
