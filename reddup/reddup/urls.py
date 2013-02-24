@@ -16,7 +16,7 @@ urlpatterns = patterns('',
     url(r'^issues/all/$', 'scru.views.all_issues', name='all_issues'),
 
     # ex: /issues/user/{user_id}
-    url(r'^issues/user/(?P<user_id>\d+)/$', 'scru.views.user_issues', name='user_issues'),
+    #url(r'^issues/user/(?P<user_id>\d+)/$', 'scru.views.user_issues', name='user_issues'),
 
     # ajax views
     url(r'^issue/open/$', 'scru.views.open_issue', name='open_issue'),
