@@ -145,7 +145,8 @@ body {
 }
 .list li {
 	margin: 0;
-	padding: 0;
+	padding: 0.25em;
+	text-align: left;
 }
 
 select, textarea {

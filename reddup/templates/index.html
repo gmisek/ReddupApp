@@ -38,17 +38,9 @@
 			<div ng-click="closeIssue(activeIssue)">Close this issue</div>
 			<div ng-click="closeMsg()" ng-show="closeHasSucceeded">Thanks! Return to home</div>
 		</div>
-		<!-- Show after clicking 'Claim' -->
-		<div class="list" ng-show="mode.list">
-			<ul>
-				<li ng-repeat="issue in issues" ng-click="openDetails(issue)">
-					{[{issue.category}]}
-				</li>
-			</ul>
-		</div>
 		<div class="list" ng-show="mode.userList">
 			<ul>
-				<li ng-repeat="issue in issues">
+				<li ng-repeat="issue in issues" ng-show="issue.opener == 'nate' || issue.cleaner == 'nate'" ng-click="openDetails(issue)">
 					{[{issue.category}]}
 				</li>
 			</ul>
@@ -93,7 +85,7 @@
 			<div class="btn" ng-click="reUpIssue(activeIssue.id)">ReUp</div>
 			<div class="btn" ng-click="successClose = true">It's been fixed</div>
 		</div>
-		<div ng-click="setMode('list')">View list</div>
+		<div ng-click="setMode('userList')">View list</div>
 		<div class="user-bar">
 			<span ng-show="!user">Log in to save your contributions</span>
 			<div ng-show="user">
