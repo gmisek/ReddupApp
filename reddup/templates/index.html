@@ -70,8 +70,10 @@
 		<div class="view-details" ng-show="activeIssue.id">
 			<div class="close" ng-click="activeIssue = ''; setMode('select')">&times;</div>
 			<img src="http://placehold.it/150x100" ng-show="activeIssue.image" />
-			<div class="type">{[{ activeIssue.category.name }]}</div>
-			<div class="meta">{[{ activeIssue.opener.username }]} - {[{ activeIssue.dateOpened | date:'medium' }]}</div>
+			<div class="type">{[{ activeIssue.category }]}</div>
+			<p>{[{ activeIssue.description }]}</p>
+			<div class="meta">{[{ activeIssue.opener }]} - {[{ activeIssue.date_opened | date:'medium' }]}</div>
+			<div class="clear"></div>
 			<div class="btn" ng-click="claimIssue(activeIssue.id)">Claim</div>
 			<div class="btn" ng-click="reUpIssue(activeIssue.id)">ReUp</div>
 			<div class="btn" ng-click="successClose = true">It's been fixed</div>

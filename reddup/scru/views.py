@@ -16,6 +16,7 @@ def index(request):
     issues = geoj.encode(djf.decode(Issue.objects.all()))
     return render_to_response('index.html', {'issues': SafeString(issues)}, RequestContext(request))
 
+@csrf_exempt
 def all_issues(request):
     geoj = GeoJSON.GeoJSON()
     djf = Django.Django(geodjango='geom', properties=['description'])
@@ -23,7 +24,7 @@ def all_issues(request):
     print issues
     return render_to_response('mapview.html', {'issues': SafeString(issues)}, RequestContext(request))
 
-
+@csrf_exempt
 def all_issues_ajax(request):
     issues= Issue.objects.filter(status='open')
     t_issues =[]

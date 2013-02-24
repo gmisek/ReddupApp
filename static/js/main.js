@@ -54,25 +54,16 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
 		$scope.clearMarkers();
 		
 		//$scope.issues = sampleIssues;
-		$http(
+		$http({
 			type: 'GET',
 			url: '/issues/all/ajax/'
-		).success(function (data) {
+		}).success(function (data) {
 			$scope.issues = data;
+			$.each($scope.issues, function (index, issue){
+				issue.marker = $scope.newMarker(issue.lat, issue.lng);
+			});
+			$scope.refreshMarkers();
 		});
-
-		$.each($scope.issues, function (index, issue){
-			issue.marker = $scope.newMarker(issue.lat, issue.lng);
-		});
-		$scope.refreshMarkers();
-
-		// $.getJSON(
-		// 	"url",
-		// 	function (data) {
-		// 		$('#spinner').stop();
-		// 		// TODO: change to $scope.issues = data;
-		// 	}
-		// );
 	};
 
 	$scope.openIssue = function() {
@@ -105,7 +96,7 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
 
 	$scope.cancelNewIssue = function () {
 		$scope.setMode('select');
-		$scope.newIssue.marker.setMap(null);
+		if ($scope.newIssue.marker) $scope.newIssue.marker.setMap(null);
 		$scope.newIssue = {};
 	};
 
@@ -202,7 +193,7 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
 	};
 
 	$scope.openDetails = function(issue) {
-		console.log(issue);
+		$scope.cancelNewIssue();
 		$scope.activeIssue = issue;
 	};
 

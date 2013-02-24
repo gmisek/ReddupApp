@@ -89,6 +89,26 @@ body {
 	font-size: 0.75em;
 	color: #999;
 }
+.view-details p {
+	color: #999;
+	margin: 0;
+}
+.view-details .btn {
+	border-radius: 4px;
+	float: left;
+	width: 30%;
+	margin: 1.5%;
+	padding: 0.25em;
+	text-align: center;
+	background: #76b981;
+	color: #2c5e34;
+	box-sizing: border-box;
+}
+.clear {
+	float: left;
+	height: 10px;
+	clear: both;
+}
 
 .close {
 	float: right;
