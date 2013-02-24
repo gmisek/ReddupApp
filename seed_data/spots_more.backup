@@ -1,0 +1,266 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 9.2.3
+-- Dumped by pg_dump version 9.2.3
+-- Started on 2013-02-24 07:37:33
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- TOC entry 210 (class 1259 OID 18269)
+-- Name: scru_issue; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE scru_issue (
+    id integer NOT NULL,
+    status character varying(100) NOT NULL,
+    description character varying(500),
+    before_img character varying(100),
+    after_img character varying(100),
+    date_opened timestamp with time zone,
+    date_closed timestamp with time zone,
+    reported_to_311 boolean,
+    geom geometry(Point,4326) NOT NULL,
+    opener_id integer NOT NULL,
+    closer_id integer,
+    cleaner_id integer,
+    category_id integer NOT NULL,
+    location_type_id integer NOT NULL
+);
+
+
+ALTER TABLE public.scru_issue OWNER TO postgres;
+
+--
+-- TOC entry 209 (class 1259 OID 18267)
+-- Name: scru_issue_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE scru_issue_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.scru_issue_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 3170 (class 0 OID 0)
+-- Dependencies: 209
+-- Name: scru_issue_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE scru_issue_id_seq OWNED BY scru_issue.id;
+
+
+--
+-- TOC entry 3150 (class 2604 OID 18543)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY scru_issue ALTER COLUMN id SET DEFAULT nextval('scru_issue_id_seq'::regclass);
+
+
+--
+-- TOC entry 3165 (class 0 OID 18269)
+-- Dependencies: 210
+-- Data for Name: scru_issue; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY scru_issue (id, status, description, before_img, after_img, date_opened, date_closed, reported_to_311, geom, opener_id, closer_id, cleaner_id, category_id, location_type_id) FROM stdin;
+1	open	chdghg			2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E61000000000002082FE53C03675CF66C8384440	1	\N	\N	1	1
+2	open	fghhdf			2013-02-23 20:01:37.586-05	2013-02-23 20:01:37.586-05	f	0101000020E610000000000038D2FF53C02D706D6FAA384440	1	\N	\N	1	1
+110	open	Graffiti all over the wall	Graffiti_Before_NULL.jpg	Graffiti_After_NULL.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E6100000DBA9ED09B7FD53C0EA6266B3E03B4440	1	1	1	1	1
+120	open	Overgrown plants everywhere	Overgrown_Before_Public.jpg	Overgrown_After_Public.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E610000083A85FA079FD53C08A1074963B3A4440	1	1	1	1	1
+130	open	Overgrown plants everywhere	Overgrown_Before_Vacant.jpg	Overgrown_After_Vacant.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E6100000537FE611A7FC53C033FABECDC43C4440	1	1	1	1	1
+139	open	Pothole big enough to eat my car	Pothole_Before_NULL.jpg	Pothole_After_NULL.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E6100000840C9694BEFB53C0E226295FB2374440	1	1	1	1	1
+149	open	Trash in the street it's up to my knee	Trash_Before_Street.jpg	Trash_After_Street.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E61000009376CBE317FB53C071A2940A2A3A4440	1	1	1	1	1
+159	open	Trash in the water	Trash_Before_Water.jpg	Trash_After_Water.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E61000008E7476C5BBFA53C0DBF83064873C4440	1	1	1	1	1
+121	open	Overgrown plants everywhere	Overgrown_Before_Vacant.jpg	Overgrown_After_Vacant.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E61000005EE7C642A4FB53C04F1BE4E2263C4440	1	1	1	1	1
+131	open	Pothole big enough to eat my car	Pothole_Before_NULL.jpg	Pothole_After_NULL.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E61000008F7476C5BBFA53C0FE474E7414374440	1	1	1	1	1
+140	open	Trash in the street it's up to my knee	Trash_Before_Street.jpg	Trash_After_Street.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E61000009EDEAB1415FA53C08DC3B91F8C394440	1	1	1	1	1
+150	open	Trash in the water	Trash_Before_Water.jpg	Trash_After_Water.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E610000099DC56F6B8F953C0F7195679E93B4440	1	1	1	1	1
+101	open	Graffiti all over the wall	Graffiti_Before_NULL.jpg	Graffiti_After_NULL.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E6100000E611CE3AB4FC53C006848BC8423B4440	1	1	1	1	1
+111	open	Overgrown plants everywhere	Overgrown_Before_Public.jpg	Overgrown_After_Public.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E61000008E1040D176FC53C0A63199AB9D394440	1	1	1	1	1
+122	open	Overgrown plants everywhere	Overgrown_Before_Vacant.jpg	Overgrown_After_Vacant.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E6100000D6A798EB5AFD53C02CA95A1A5D3B4440	1	1	1	1	1
+160	open	Pothole big enough to eat my car	Pothole_Before_NULL.jpg	Pothole_After_NULL.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E61000000735486E72FC53C0DBD5C4AB4A364440	1	1	1	1	1
+141	open	Trash in the street it's up to my knee	Trash_Before_Street.jpg	Trash_After_Street.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E6100000169F7DBDCBFB53C06A513057C2384440	1	1	1	1	1
+151	open	Trash in the water	Trash_Before_Water.jpg	Trash_After_Water.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E6100000119D289F6FFB53C0D4A7CCB01F3B4440	1	1	1	1	1
+102	open	Graffiti all over the wall	Graffiti_Before_NULL.jpg	Graffiti_After_NULL.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E61000005ED29FE36AFE53C0E3110200793A4440	1	1	1	1	1
+112	open	Overgrown plants everywhere	Overgrown_Before_Public.jpg	Overgrown_After_Public.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E610000006D1117A2DFE53C083BF0FE3D3384440	1	1	1	1	1
+123	open	Overgrown plants everywhere	Overgrown_Before_Vacant.jpg	Overgrown_After_Vacant.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E61000007A08EC5706FB53C06FDA2722A03D4440	1	1	1	1	1
+132	open	Pothole big enough to eat my car	Pothole_Before_NULL.jpg	Pothole_After_NULL.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E6100000AB959BDA1DFA53C01E0792B38D384440	1	1	1	1	1
+142	open	Trash in the street it's up to my knee	Trash_Before_Street.jpg	Trash_After_Street.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E6100000BAFFD02977F953C0AD82FD5E053B4440	1	1	1	1	1
+152	open	Trash in the water	Trash_Before_Water.jpg	Trash_After_Water.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E6100000B5FD7B0B1BF953C017D999B8623D4440	1	1	1	1	1
+103	open	Graffiti all over the wall	Graffiti_Before_NULL.jpg	Graffiti_After_NULL.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E61000000233F34F16FC53C02643CF07BC3C4440	1	1	1	1	1
+113	open	Overgrown plants everywhere	Overgrown_Before_Public.jpg	Overgrown_After_Public.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E6100000AA3165E6D8FB53C0C6F0DCEA163B4440	1	1	1	1	1
+124	open	Overgrown plants everywhere	Overgrown_Before_Vacant.jpg	Overgrown_After_Vacant.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E6100000E94BB670860054C05BD2D3A82F3C4440	1	1	1	1	1
+133	open	Pothole big enough to eat my car	Pothole_Before_NULL.jpg	Pothole_After_NULL.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E61000001AD965F39DFF53C00AFF3D3A1D374440	1	1	1	1	1
+143	open	Trash in the street it's up to my knee	Trash_Before_Street.jpg	Trash_After_Street.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E610000029439B42F7FE53C0997AA9E594394440	1	1	1	1	1
+153	open	Trash in the water	Trash_Before_Water.jpg	Trash_After_Water.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E6100000244146249BFE53C003D1453FF23B4440	1	1	1	1	1
+104	open	Graffiti all over the wall	Graffiti_Before_NULL.jpg	Graffiti_After_NULL.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E61000007176BD68960154C0123B7B8E4B3B4440	1	1	1	1	1
+114	open	Overgrown plants everywhere	Overgrown_Before_Public.jpg	Overgrown_After_Public.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E610000019752FFF580154C0B2E88871A6394440	1	1	1	1	1
+125	open	Overgrown plants everywhere	Overgrown_Before_Vacant.jpg	Overgrown_After_Vacant.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E61000006B2559B52E0054C0BA4E148447384440	1	1	1	1	1
+134	open	Pothole big enough to eat my car	Pothole_Before_NULL.jpg	Pothole_After_NULL.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E61000009CB2083846FF53C0697B7E1535334440	1	1	1	1	1
+144	open	Trash in the street it's up to my knee	Trash_Before_Street.jpg	Trash_After_Street.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E6100000AB1C3E879FFE53C0F8F6E9C0AC354440	1	1	1	1	1
+154	open	Trash in the water	Trash_Before_Water.jpg	Trash_After_Water.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E6100000A61AE96843FE53C0624D861A0A384440	1	1	1	1	1
+105	open	Graffiti all over the wall	Graffiti_Before_NULL.jpg	Graffiti_After_NULL.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E6100000F34F60AD3E0154C071B7BB6963374440	1	1	1	1	1
+115	open	Overgrown plants everywhere	Overgrown_Before_Public.jpg	Overgrown_After_Public.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E61000009B4ED243010154C01165C94CBE354440	1	1	1	1	1
+126	open	Overgrown plants everywhere	Overgrown_Before_Vacant.jpg	Overgrown_After_Vacant.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E610000084F76E3585FE53C00F9D5C6434394440	1	1	1	1	1
+135	open	Pothole big enough to eat my car	Pothole_Before_NULL.jpg	Pothole_After_NULL.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E6100000B5841EB89CFD53C0BEC9C6F521344440	1	1	1	1	1
+145	open	Trash in the street it's up to my knee	Trash_Before_Street.jpg	Trash_After_Street.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E6100000C4EE5307F6FC53C04D4532A199364440	1	1	1	1	1
+155	open	Trash in the water	Trash_Before_Water.jpg	Trash_After_Water.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E6100000BFECFEE899FC53C0B79BCEFAF6384440	1	1	1	1	1
+106	open	Graffiti all over the wall	Graffiti_Before_NULL.jpg	Graffiti_After_NULL.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E61000000C22762D95FF53C0C605044A50384440	1	1	1	1	1
+116	open	Overgrown plants everywhere	Overgrown_Before_Public.jpg	Overgrown_After_Public.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E6100000B420E8C357FF53C066B3112DAB364440	1	1	1	1	1
+127	open	Overgrown plants everywhere	Overgrown_Before_Vacant.jpg	Overgrown_After_Vacant.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E61000007D2DAD2E9F0154C029F614910C3C4440	1	1	1	1	1
+136	open	Pothole big enough to eat my car	Pothole_Before_NULL.jpg	Pothole_After_NULL.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E6100000AEBA5CB1B60054C0D8227F22FA364440	1	1	1	1	1
+146	open	Trash in the street it's up to my knee	Trash_Before_Street.jpg	Trash_After_Street.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E6100000BD249200100054C0679EEACD71394440	1	1	1	1	1
+156	open	Trash in the water	Trash_Before_Water.jpg	Trash_After_Water.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E6100000B8223DE2B3FF53C0D1F48627CF3B4440	1	1	1	1	1
+107	open	Graffiti all over the wall	Graffiti_Before_NULL.jpg	Graffiti_After_NULL.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E61000000558B426AF0254C0E05EBC76283B4440	1	1	1	1	1
+117	open	Overgrown plants everywhere	Overgrown_Before_Public.jpg	Overgrown_After_Public.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E6100000AD5626BD710254C0800CCA5983394440	1	1	1	1	1
+128	open	Overgrown plants everywhere	Overgrown_Before_Vacant.jpg	Overgrown_After_Vacant.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E6100000056DDB85E8FF53C0B3FDAFD0DF364440	1	1	1	1	1
+137	open	Pothole big enough to eat my car	Pothole_Before_NULL.jpg	Pothole_After_NULL.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E610000036FA8A0800FF53C0622A1A62CD314440	1	1	1	1	1
+147	open	Trash in the street it's up to my knee	Trash_Before_Street.jpg	Trash_After_Street.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E61000004564C05759FE53C0F1A5850D45344440	1	1	1	1	1
+157	open	Trash in the water	Trash_Before_Water.jpg	Trash_After_Water.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E610000040626B39FDFD53C05BFC2167A2364440	1	1	1	1	1
+108	open	Graffiti all over the wall	Graffiti_Before_NULL.jpg	Graffiti_After_NULL.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E61000008D97E27DF80054C06A6657B6FB354440	1	1	1	1	1
+118	open	Overgrown plants everywhere	Overgrown_Before_Public.jpg	Overgrown_After_Public.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E610000035965414BB0054C00A14659956344440	1	1	1	1	1
+129	open	Overgrown plants everywhere	Overgrown_Before_Vacant.jpg	Overgrown_After_Vacant.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E6100000AAA3E033210354C0942945322D384440	1	1	1	1	1
+138	open	Pothole big enough to eat my car	Pothole_Before_NULL.jpg	Pothole_After_NULL.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E6100000DB3090B6380254C04356AFC31A334440	1	1	1	1	1
+148	open	Trash in the street it's up to my knee	Trash_Before_Street.jpg	Trash_After_Street.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E6100000EA9AC505920154C0D2D11A6F92354440	1	1	1	1	1
+158	open	Trash in the water	Trash_Before_Water.jpg	Trash_After_Water.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E6100000E59870E7350154C03C28B7C8EF374440	1	1	1	1	1
+109	open	Graffiti all over the wall	Graffiti_Before_NULL.jpg	Graffiti_After_NULL.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E610000032CEE72B310454C04B92EC1749374440	1	1	1	1	1
+119	open	Overgrown plants everywhere	Overgrown_Before_Public.jpg	Overgrown_After_Public.jpg	2013-02-23 19:48:43.168-05	2013-02-23 19:48:43.168-05	f	0101000020E6100000DACC59C2F30354C0EB3FFAFAA3354440	1	1	1	1	1
+\.
+
+
+--
+-- TOC entry 3171 (class 0 OID 0)
+-- Dependencies: 209
+-- Name: scru_issue_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('scru_issue_id_seq', 3, true);
+
+
+--
+-- TOC entry 3158 (class 2606 OID 18277)
+-- Name: scru_issue_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY scru_issue
+    ADD CONSTRAINT scru_issue_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3151 (class 1259 OID 18672)
+-- Name: scru_issue_category_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX scru_issue_category_id ON scru_issue USING btree (category_id);
+
+
+--
+-- TOC entry 3152 (class 1259 OID 18666)
+-- Name: scru_issue_cleaner_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX scru_issue_cleaner_id ON scru_issue USING btree (cleaner_id);
+
+
+--
+-- TOC entry 3153 (class 1259 OID 18660)
+-- Name: scru_issue_closer_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX scru_issue_closer_id ON scru_issue USING btree (closer_id);
+
+
+--
+-- TOC entry 3154 (class 1259 OID 18335)
+-- Name: scru_issue_geom_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX scru_issue_geom_id ON scru_issue USING gist (geom);
+
+
+--
+-- TOC entry 3155 (class 1259 OID 18678)
+-- Name: scru_issue_location_type_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX scru_issue_location_type_id ON scru_issue USING btree (location_type_id);
+
+
+--
+-- TOC entry 3156 (class 1259 OID 18654)
+-- Name: scru_issue_opener_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX scru_issue_opener_id ON scru_issue USING btree (opener_id);
+
+
+--
+-- TOC entry 3162 (class 2606 OID 18667)
+-- Name: category_id_refs_id_2203608f; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY scru_issue
+    ADD CONSTRAINT category_id_refs_id_2203608f FOREIGN KEY (category_id) REFERENCES scru_category(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 3161 (class 2606 OID 18661)
+-- Name: cleaner_id_refs_id_3aeccc1f; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY scru_issue
+    ADD CONSTRAINT cleaner_id_refs_id_3aeccc1f FOREIGN KEY (cleaner_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 3160 (class 2606 OID 18655)
+-- Name: closer_id_refs_id_3aeccc1f; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY scru_issue
+    ADD CONSTRAINT closer_id_refs_id_3aeccc1f FOREIGN KEY (closer_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 3163 (class 2606 OID 18673)
+-- Name: location_type_id_refs_id_6a2315ac; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY scru_issue
+    ADD CONSTRAINT location_type_id_refs_id_6a2315ac FOREIGN KEY (location_type_id) REFERENCES scru_locationtype(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 3159 (class 2606 OID 18649)
+-- Name: opener_id_refs_id_3aeccc1f; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY scru_issue
+    ADD CONSTRAINT opener_id_refs_id_3aeccc1f FOREIGN KEY (opener_id) REFERENCES auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+-- Completed on 2013-02-24 07:37:33
+
+--
+-- PostgreSQL database dump complete
+--
+
