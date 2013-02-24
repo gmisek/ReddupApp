@@ -66,6 +66,7 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
 		});
 	};
 
+        /*
 	$scope.openIssue = function() {
 		$scope.loading = true;
 		$http({
@@ -89,7 +90,7 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
     		$scope.loading = false;
     	});
 	};
-
+*/
 	$scope.closeMsg = function () {
 		$scope.setMode('select');
 	};

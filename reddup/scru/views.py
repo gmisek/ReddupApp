@@ -44,21 +44,20 @@ def open_issue(request):
     if request.method == 'POST':
         status = 'open'
 
-        data = simplejson.loads(request.raw_post_data)
+        before_img = request.FILES['beforeImg']
 
-        user = User.objects.get(pk=data['user_id'])
+        user = User.objects.get(pk=1)#request.POST.get('user_id'))
         category = Category.objects.get(pk=1) #data['category_id']
-        location_type = LocationType.objects.get(pk=data['location_type_id'])
+        location_type = LocationType.objects.get(pk=request.POST.get('location_type_id'))
 
-        description = data['description']
-        #TODObefore_img = data['before_img']
+        description = request.POST.get('description')
 
-        reported_to_311 = data['reported_to_311']
-        longitude = data['longitude']
-        latitude = data['latitude']
+        reported_to_311 = request.POST.get('reported_to_311')
+        longitude = request.POST.get('longitude')
+        latitude = request.POST.get('latitude')
 
         pnt = Point(float(longitude), float(latitude))
-        issue = Issue(status=status, opener=user, description=description, #before_img=before_img,
+        issue = Issue(status=status, opener=user, description=description, before_img=before_img,
                       category=category, reported_to_311=reported_to_311, location_type=location_type,
                       geom=pnt)
         issue.save()
@@ -69,7 +68,6 @@ def open_issue(request):
         return HttpResponse(json.dumps({'success': True}), content_type='application/json')
     else:
         return HttpResponse(json.dumps({'success': False}), content_type='application/json')
-
 
 @csrf_exempt
 def close_issue(request):
