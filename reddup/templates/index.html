@@ -48,8 +48,9 @@
 			</form>
 		</div>
 		<div class="list" ng-show="mode.userList">
-			<div class="close" ng-click="setMode('select')">&times;</div>
+			<div class="close" ng-click="setMode('select'); newClaim = false">&times;</div>
 			<h4>Issues I've claimed</h4>
+			<div class="added" ng-show="newClaim">Thanks! We've added this issue to your list</div>
 			<ul>
 				<li ng-repeat="issue in issues" ng-show="issue.opener == 'nate' || issue.cleaner == 'nate'">
 					<span class="fixed" ng-click="setMode('select'); $parent.activeIssue = issue; $parent.successClose = true">I fixed it!</span>

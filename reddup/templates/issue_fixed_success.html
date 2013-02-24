@@ -12,24 +12,20 @@
 </head>
 <body class="open-success">
 	<h2>Thanks!</h2>
-	<h3>You've helped redd up Pittsburgh!</h3>
+	<h3>You've helped Redd Up Pittsburgh!</h3>
 
-	<div>
+	<div style="display: inline-block;">
 		<div style="float: left;">
-			<img src="{{ STATIC_URL }}/{{ issue.before_img }}" />
+			<img src="../../{{ issue.before_img }}" />
 		</div>
 		<div style="float: left;">
-			<img src="{{ STATIC_URL }}/{{ issue.after_img }}" />
+			<img src="../../{{ issue.after_img }}" />
 		</div>
 	</div>
 
 	<div style="clear:both;"></div>
 
-	<div>
-		<img src="facebook.png" />
-		<img src="twitter.png" />
-		<img src="tumblr.png" />
-	</div>
+	<img src="{{ STATIC_URL }}css/share.png" /><br />
 
 	<a href="index.html">Return to the map</a>
 </body>

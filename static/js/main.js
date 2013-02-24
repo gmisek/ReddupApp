@@ -213,7 +213,8 @@ var myApp = angular.module('steelCityReddUp', ['ui'])
 		    }
 		}).success(function(data, status, headers, config) {
 			$scope.loading = false;
-    		$scope.setMode('userList')
+    		$scope.setMode('userList');
+    		$scope.newClaim = true;
     		$scope.fetchPoints();
     	}).error(function(data, status, headers, config) {
     		$scope.loading = false;

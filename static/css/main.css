@@ -199,6 +199,14 @@ body {
 	text-align: left;
 	cursor: pointer;
 }
+.list .added {
+	background: #76b981;
+	color: #2c5e34;
+	padding: 0.25em;
+	margin: 0.75em;
+	box-sizing: border-box;
+	border-radius: 4px;
+}
 .list h4 {
 	color: #1e5475;
 	text-align: left;
@@ -283,7 +291,8 @@ input[type="file"] {
 	padding: 2em;
 	box-sizing: border-box;
 }
-.success h4 {
+.success h4,
+.open-success h2 {
 	font-size: 2em;
 	color: #fff60b;
 	margin: 0 0 1em 0;
@@ -299,4 +308,7 @@ input[type="file"] {
 }
 .open-success a {
 	color: #fff60b;
+}
+.open-success h2 {
+	margin: 1em 0;
 }
