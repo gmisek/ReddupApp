@@ -19,14 +19,10 @@ def index(request):
 
 def user_issues(request, user_id):
     user = User.objects.get(pk=user_id)
-    claims = Claim.objects.filter(user=user_id)
+    claims = Claim.objects.filter(user=user)
     issues = [Issue.objects.get(pk=g.issue.id) for g in claims]
 
-    print user
-    print claims
-    print issues
-
-    return render_to_response('issues.html', {'issues': SafeString(issues)}, RequestContext(request))
+    return render_to_response('issues.html', {'issues': issues}, RequestContext(request))
 
 
 @csrf_exempt
