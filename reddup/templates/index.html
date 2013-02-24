@@ -32,6 +32,7 @@
 
 			<div ng-click="closeSuccess()">Close</div>
 		</div>
+		<div class="success"></div>
 		<!-- Show after clicking 'Claim' -->
 		<div class="list" ng-show="mode.list">
 			<ul>
@@ -53,8 +54,8 @@
 					<option value="1">Pothole</option>
 				</select>
 				<textarea ng-model="newIssue.description" placeholder="Add a description"></textarea>
-				<input ng-model="image" type="file" value="Add Image" />
-				<div class="submit-btn" ng-click="addIssue()">Save issue</div>
+				<input ng-model="beforeImg" type="file" value="Add Image" />
+				<div class="submit-btn" ng-click="openIssue()">Save issue</div>
 			</div>
 		</div>
 		<div class="view-details" ng-show="activeIssue.id">
@@ -63,7 +64,7 @@
 			<div class="type">{[{ activeIssue.category.name }]}</div>
 			<div class="meta">{[{ activeIssue.opener.username }]} - {[{ activeIssue.dateOpened | date:'medium' }]}</div>
 			<div class="btn" ng-click="claimIssue(activeIssue.id)">Claim</div>
-			<div class="btn" ng-click="reUp(activeIssue.id)">ReUp</div>
+			<div class="btn" ng-click="reUpIssue(activeIssue.id)">ReUp</div>
 			<div class="btn" ng-click="closeIssue(activeIssue)">Close</div>
 		</div>
 		<div class=""
