@@ -30,7 +30,7 @@ def all_issues(request):
     geoj = GeoJSON.GeoJSON()
     djf = Django.Django(geodjango='geom', properties=['description'])
     issues = geoj.encode(djf.decode(Issue.objects.filter(status='open')))
-    print issues
+    #print issues
     return render_to_response('mapview.html', {'issues': SafeString(issues)}, RequestContext(request))
 
 @csrf_exempt
@@ -46,6 +46,9 @@ def all_issues_ajax(request):
         t_issue['lng']=issue.geom.get_x()
         t_issue['lat']=issue.geom.get_y()
         t_issues.append(t_issue)
+
+        #print t_issues
+
     return HttpResponse(SafeString(simplejson.dumps(t_issues)), mimetype='application/json')
 
 @csrf_exempt
@@ -91,7 +94,7 @@ def close_issue(request):
         except:
             print 'no image'
 
-        print request.POST.get('issue_id')
+        #print request.POST.get('issue_id')
 
         status = 'closed'
         issue = Issue.objects.get(pk=request.POST.get('issue_id'))

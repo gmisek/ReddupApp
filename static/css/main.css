@@ -56,6 +56,7 @@ body {
 }
 .big-btn.full {
 	width: 100%;
+    font-size: 2em;
 }
 .big-btn:hover,
 .big-btn:active,
@@ -82,7 +83,7 @@ body {
 
 #map_canvas {
 	width: 100%;
-	height: 550px;
+	height: 630px;
 }
 
 .view-details,
@@ -96,7 +97,7 @@ body {
 .view-details .content,
 .add-details .content {
 	float: left;
-	width: 85%;
+	width: 80%;
 	padding: 0.5em;
 	box-sizing: border-box;
 }
@@ -109,16 +110,16 @@ body {
 .view-details .reported {
 	text-transform: uppercase;
 	color: #fff;
-	font-size: 0.7em;
+	font-size: 0.9em;
 	line-height: 0.5em;
 	margin: 10px 0 5px 0;
 }
 .view-details .type {
-	font-size: 1.25em;
+	font-size: 1.5em;
 	color: #fff;
 }
 .view-details .meta {
-	font-size: 0.75em;
+	font-size: 1em;
 	color: #999;
 }
 .view-details p {
@@ -130,7 +131,8 @@ body {
 	float: left;
 	width: 30%;
 	margin: 1.5%;
-	padding: 0.25em;
+    font-size: 1.25em;
+	padding: 0.5em;
 	text-align: center;
 	background: #76b981;
 	color: #2c5e34;
@@ -141,7 +143,7 @@ body {
 	color: #551a21;
 }
 .view-details img {
-	max-width: 15%;
+	max-width: 20%;
 	max-height: 25%;
 }
 .willing {
@@ -253,7 +255,7 @@ body {
 	background: #76b981;
 	border-radius: 4px;
 	color: #fff;
-	padding: 0.25em;
+	padding: 0.5em 0.75em;
 }
 
 select, textarea {

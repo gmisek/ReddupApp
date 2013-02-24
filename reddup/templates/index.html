@@ -13,7 +13,7 @@
 <body>
 	
 	<div class="wrap" ng-controller="Controller">
-		<div class="name-row"><img src="{{ STATIC_URL }}css/SteelCityReddUpLogo.png" alt="Steel City Redd Up" style="width: 200px;" /></span></div>
+		<div class="name-row"><img src="{{ STATIC_URL }}css/SteelCityReddUpLogo.png" alt="Steel City Redd Up" style="width: 250px;" /></span></div>
 		<div class="loading" ng-show="loading">Loading</div>
 		<div class="" id="map_canvas" ui-map="map" ui-event="{'map-click': 'tempMarker($event)'}" ui-options="mapOptions" >
 		</div>
@@ -52,7 +52,7 @@
 			<h4>Issues I've claimed</h4>
 			<div class="added" ng-show="newClaim">Thanks! We've added this issue to your list</div>
 			<ul>
-				<li ng-repeat="issue in issues" ng-show="issue.opener == 'nate' || issue.cleaner == 'nate'">
+				<li ng-repeat="issue in issues" ng-show="issue.cleaner == 'nate'">
 					<span class="fixed" ng-click="setMode('select'); $parent.activeIssue = issue; $parent.successClose = true">I fixed it!</span>
 					<span class="dot"></span>
 					<span class="cat" ng-click="openDetails(issue)">{[{issue.category}]} - {[{issue.description}]}</span>
@@ -71,7 +71,7 @@
 			</ul>
 			<h4>Issues I've opened</h4>
 			<ul>
-				<li ng-repeat="issue in issues" ng-show="issue.opener == 'nate' || issue.cleaner == 'nate'" ng-click="openDetails(issue)">
+				<li ng-repeat="issue in issues" ng-show="issue.opener == 'nate';" ng-click="openDetails(issue)">
 					<span class="dot green"></span>
 					<span class="cat">{[{issue.category}]} - {[{issue.description}]}</span>
 					<span class="meta">Opened today</span>
@@ -101,8 +101,10 @@
                 <form enctype="multipart/form-data" action="issue/open/" method="POST">
                     <div class="wrap-select"><select name="category" id="category">
                         <option>What kind of problem are you reporting?</option>
-                        <option value="1">Garbage</option>
                         <option value="1">Pothole</option>
+                        <option value="1">Trash/Litter</option>
+                        <option value="1">Overgrown Lot</option>
+                        <option value="1">Graffiti</option>
                     </select></div>
                     <textarea name="description" placeholder="Add a description"></textarea>
                     <input type="hidden" name="latitude" id="latitude" ng-model="newIssue.latitude" value="{[{ newIssue.latitude }]}"/>
