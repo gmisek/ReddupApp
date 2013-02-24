@@ -8,6 +8,17 @@
 
     <script type="text/javascript">
         var map, layer;
+        var issue_layer;
+        function new_issue(e)
+        {
+                    var lonlat = map.getLonLatFromPixel(e.xy);
+                    alert("You clicked near " + lonlat.lat + " N, " +
+                                              + lonlat.lon + " E");
+            var proj = new OpenLayers.Projection("EPSG:4326");
+            lonlat.transform( map.getProjectionObject(), proj);            
+            alert("You clicked near " + lonlat.lat + " N, " +
+                                              + lonlat.lon + " E");                    
+        }
         function init(){
 
             map = new OpenLayers.Map( 'map');
@@ -50,7 +61,7 @@
                 }
 
             });
-            
+
 //create a style object
             var style = new OpenLayers.Style();
 //rule used for all polygons
@@ -61,7 +72,7 @@
                     strokeColor: "#000000",
                     strokeWidth: 1,
                     strokeDashstyle: "dash",
-                    label: "${name}",
+                    label: "${description}",
                     labelAlign: "cc",
                     fontColor: "#333333",
                     fontOpacity: 0.9,
@@ -80,7 +91,7 @@
                     strokeColor: "#FF0000",
                     strokeWidth: 2,
                     strokeDashstyle: "solid",
-                    label: " ${name}",
+                    label: " ${description}",
                     labelAlign: "cc",
                     fontColor: "#000000",
                     fontOpacity: 1,
@@ -95,14 +106,10 @@
                 'internalProjection': new OpenLayers.Projection("EPSG:900913"),
                 'externalProjection': new OpenLayers.Projection("EPSG:4326")
             });
-            var snow_layer = new OpenLayers.Layer.Vector("Snow Zones", {
+            issue_layer = new OpenLayers.Layer.Vector("Issues", {
                 styleMap: style});
-            map.addLayer(snow_layer);
-            var meter_layer = new OpenLayers.Layer.Vector("Broken Meters", {
-                styleMap: style});
-            map.addLayer(meter_layer);
-            //snow_layer.addFeatures(geojson_format.read(snow_zones));
-            meter_layer.addFeatures(geojson_format.read(issues));
+            map.addLayer(issue_layer);
+            issue_layer.addFeatures(geojson_format.read(issues));
               var click = new OpenLayers.Control.Click();
                 map.addControl(click);
                 click.activate();
